@@ -1,8 +1,12 @@
 package primitives;
 
+import geometries.Plane;
+
+import java.util.Objects;
+
 public class Point
 {
-    protected final Double3 xyz;
+    final Double3 xyz;
 
     public Point(double x, double y, double z)
     {
@@ -15,20 +19,16 @@ public class Point
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Vector other = (Vector) obj;
-        if (this.xyz == null) {
-            if (other.xyz != null)
-                return false;
-        } else if (!xyz.equals(other.xyz))
-            return false;
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point point = (Point) o;
+        return Objects.equals(xyz, point.xyz);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(xyz);
     }
 
     @Override
@@ -50,10 +50,19 @@ public class Point
 
     public double distanceSquared(Point p1)
     {
+        /**
         double x=this.xyz.subtract(p1.xyz).d1 * this.xyz.subtract(p1.xyz).d1;
         double y=this.xyz.subtract(p1.xyz).d2 * this.xyz.subtract(p1.xyz).d2;
         double z=this.xyz.subtract(p1.xyz).d3 * this.xyz.subtract(p1.xyz).d3;
         return x+y+z;
+         */
+        double x1 = xyz.d1;
+        double y1 = xyz.d2;
+        double z1 = xyz.d3;
+        double x2 = p1.xyz.d1;
+        double y2 = p1.xyz.d1;
+        double z2 = p1.xyz.d1;
+        return ((x2 = x1) * (x2 = x1) + (y2 - y1) * (y2 - y1)  + (z2 - z1 ) * (z2 - z1 ));
     }
 
     public double distance(Point p)
