@@ -45,20 +45,6 @@ public class Vector extends Point
 
     public Vector crossProduct(Vector v)
     {
-        /**
-        double coord1 = this.xyz.d2 *v.xyz.d3;
-        double coord2 = this.xyz.d3 * v.xyz.d2;
-        double finalX=coord1-coord2;
-
-        coord1=this.xyz.d1 *v.xyz.d3;
-        coord2=this.xyz.d3 *v.xyz.d1;
-        double finalY=-1 * (coord1-coord2);
-
-        coord1=this.xyz.d1 *v.xyz.d2;
-        coord2=this.xyz.d2 *v.xyz.d1;
-        double finalZ=coord1-coord2;
-         return new Vector(finalX,finalY,finalZ);
-         */
         double ax = xyz.d1;
         double ay = xyz.d2;
         double az = xyz.d3;
@@ -67,7 +53,7 @@ public class Vector extends Point
         double bz = v.xyz.d3;
 
         double cx = ay * bz - az * by;
-        double  cy = az * bx - ax * bz;
+        double  cy = -(az * bx - ax * bz);
         double cz = ax * by - ay * bx;
         return  new Vector(cx, cy, cz);
     }
@@ -97,8 +83,6 @@ public class Vector extends Point
     {
         //return new Vector(xyz.reduce(length()));
         double len = length();
-        if(len == 0)
-            throw new ArithmeticException("Divide by zero!");
         return new Vector(xyz.reduce((len)));
     }
 

@@ -50,19 +50,12 @@ public class Point
 
     public double distanceSquared(Point p1)
     {
-        /**
+
         double x=this.xyz.subtract(p1.xyz).d1 * this.xyz.subtract(p1.xyz).d1;
         double y=this.xyz.subtract(p1.xyz).d2 * this.xyz.subtract(p1.xyz).d2;
         double z=this.xyz.subtract(p1.xyz).d3 * this.xyz.subtract(p1.xyz).d3;
         return x+y+z;
-         */
-        double x1 = xyz.d1;
-        double y1 = xyz.d2;
-        double z1 = xyz.d3;
-        double x2 = p1.xyz.d1;
-        double y2 = p1.xyz.d1;
-        double z2 = p1.xyz.d1;
-        return ((x2 = x1) * (x2 = x1) + (y2 - y1) * (y2 - y1)  + (z2 - z1 ) * (z2 - z1 ));
+
     }
 
     public double distance(Point p)
