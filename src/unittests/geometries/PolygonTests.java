@@ -65,7 +65,6 @@ public class PolygonTests {
 				"Constructed a polygon with vertice on a side");
 
 	}
-
 	/**
 	 * Test method for {@link geometries.Polygon#getNormal(primitives.Point)}.
 	 */
