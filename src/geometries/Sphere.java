@@ -22,6 +22,11 @@ public class Sphere implements Geometry
     }
 
     @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
+    }
+
+    @Override
     public String toString() {
         return "Sphere{" +
                 "center=" + center +

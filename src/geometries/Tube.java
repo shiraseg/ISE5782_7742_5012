@@ -34,6 +34,14 @@ public class Tube implements Geometry
 
     @Override
     public Vector getNormal(Point point) {
+        double t = axisRay.getDir().dotProduct(point.subtract( axisRay.getP0()));//finding scaler for the projection of point on axisRay
+        Point O = axisRay.getP0().add(axisRay.getDir().scale(t));// O is the projection of point on axisRay
+        Vector N=point.subtract(O);
+        return N.normalize();
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
         return null;
     }
 

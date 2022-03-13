@@ -18,13 +18,20 @@ public class Point
         this.xyz=xyz;
     }
 
-    public boolean equals(Point o) {
+   /** public boolean equals(Point o) {
         if (this.xyz.equals(o.xyz))
             return true;
         if (o == null || getClass() != o.getClass()) return false;
         Point point = (Point) o;
         return Objects.equals(xyz, point.xyz);
-    }
+    }*/
+   @Override
+   public boolean equals(Object o) {
+       if (this == o) return true;
+       if (o == null || getClass() != o.getClass()) return false;
+       Point point = (Point) o;
+       return xyz.equals(((Point) o).xyz);
+   }
 
     @Override
     public int hashCode() {
