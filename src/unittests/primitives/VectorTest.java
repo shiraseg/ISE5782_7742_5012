@@ -29,11 +29,11 @@ class VectorTest {
         assertEquals( v1.length() * v2.length(), vr.length(), 0.00001,"crossProduct() wrong result length");
 
         // TC02: Test cross-product result orthogonality to its operands
-        assertFalse(isZero(vr.dotProduct(v1)),"crossProduct() result is not orthogonal to 1st operand");
-        assertFalse(isZero(vr.dotProduct(v2)),"crossProduct() result is not orthogonal to 2nd operand");
+        assertTrue(isZero(vr.dotProduct(v1)),"crossProduct() result is not orthogonal to 1st operand");
+        assertTrue(isZero(vr.dotProduct(v2)),"crossProduct() result is not orthogonal to 2nd operand");
 
         // =============== Boundary Values Tests ==================
-        // TC11: test zero vector from cross-productof co-lined vectors
+        // TC11: test zero vector from cross-product of co-lined vectors
         Vector v3 = new Vector(-2, -4, -6);
         assertThrows (IllegalArgumentException.class, () -> v1.crossProduct(v3),"crossProduct() for parallel vectors does not throw an exception");
 
@@ -53,29 +53,33 @@ class VectorTest {
     @Test
     void length()
     {
-        assertFalse(isZero(new Vector(0, 3, 4).length() - 5),"ERROR: length() wrong value");
+        assertTrue(isZero(new Vector(0, 3, 4).length() - 5),"ERROR: length() wrong value");
     }
 
     @Test
     void lengthSquared() {
         Vector v1 = new Vector(1, 2, 3);
-        assertFalse(isZero(v1.lengthSquared() - 14),"ERROR: lengthSquared() wrong value");
+        assertTrue(isZero(v1.lengthSquared() - 14),"ERROR: lengthSquared() wrong value");
     }
 
     @Test
     void normalize() {
         Vector v = new Vector(1, 2, 3);
         double lenght = Math.sqrt(14);
-        Vector vN = new Vector(1/lenght,2/lenght,3/lenght);
+        Vector vn = new Vector(1/lenght,2/lenght,3/lenght);
         Vector u = v.normalize();
         // ============ Equivalence Partitions Tests ==============
-        assertEquals(vN,u,"ERROR: wrong value");
-        Vector vNotParallel= new Vector(2,5,6);//this vector isn't parallel to the original one
-        assertFalse(isZero(u.length() - 1),"ERROR: the normalized vector is not a unit vector");
+        assertEquals(vn,u,"ERROR:Problem with normalization function.");
+
+        assertTrue(isZero(u.length() - 1),"ERROR: the normalized vector is not a unit vector");
+
         // =============== Boundary Values Tests ==================
-        assertEquals(vNotParallel.crossProduct(v),new Vector(0,0,0),"ERROR: the normalized vector is not parallel to the original one");
+        assertThrows( IllegalArgumentException.class,
+                () -> {v.crossProduct(new Vector(2,4,6));},
+                "ERROR: the normalized vector is not parallel to the original one"); // test that the vectors are co-lined
+
         // =============== Boundary Values Tests ==================
-        assertTrue (v.dotProduct(u) < 0,"ERROR: the normalized vector is opposite to the original one");
+        assertTrue (v.dotProduct(u) >= 0,"ERROR: the normalized vector is opposite to the original one");
     }
 
     @Test

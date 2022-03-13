@@ -20,12 +20,18 @@ public class Plane implements Geometry
     public Plane(Point x, Point y, Point z)
     {
         this.p=x;
+        if(x.equals(y) || x.equals(z) || y.equals(z))
+           throw  new IllegalArgumentException("ERROR: plane must be with three different points");
+        Vector xt = x.subtract(new Point(0,0,0)).normalize();
+        Vector yt = y.subtract(new Point(0,0,0)).normalize();
+        Vector zt = z.subtract(new Point(0,0,0)).normalize();
+        if(xt.dotProduct(yt)==1 || xt.dotProduct(zt)==1 || yt.dotProduct(zt)==1)
+            throw new  IllegalArgumentException("ERROR: cant points on the same ray");
         Vector U=y.subtract(x);
         Vector V=z.subtract(x);
         Vector N=U.crossProduct(V);
         N.normalize();
         this.normal=N;
-
     }
 
     public Point getP() {
