@@ -20,7 +20,7 @@ class PlaneTest {
         // ============ Equivalence Partitions Tests ==============
         try
         {
-            new Plane(new Point(1,1,1),new Point(1,1,1),new Point(1,2,1));
+            new Plane(new Point(1,1,1),new Point(0,1,1),new Point(1,2,1));
         }
         catch(IllegalArgumentException e)
         {
@@ -31,7 +31,7 @@ class PlaneTest {
                 "Constructed a plane with tow equal points");
 
         //TC01: same ray
-        assertThrows( IllegalArgumentException.class, () -> new Plane(new Point(1,1,1),new Point(2,2,2),new Point(1,2,1)),
+        assertThrows( IllegalArgumentException.class, () -> new Plane(new Point(0,0,1),new Point(1,0,0),new Point(1,2,1)),
                 "Constructed a plane with tow points on the same ray");
     }
 
@@ -47,4 +47,12 @@ class PlaneTest {
         assertEquals(1,plane.getNormal().length(),"ERROR: the length isn't 1");
 
     }
+    /**
+     * צריך לבדוק מה באמת הערכים הנכונים
+     Ray r = new Ray()
+     Plane p = new Plane(new Point(o,1,0), new Point(0,0,1), new Point(1,0,0));
+     assertEquals(List.of(new Point(0,1,0)),p.findIntersection(r));
+     אם אין נקודת חיתוך מחזיר NULL ולכן:
+     assertNull(p.findIntersection(r))
+     */
 }

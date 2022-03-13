@@ -53,7 +53,7 @@ public class Vector extends Point
         double bz = v.xyz.d3;
 
         double cx = ay * bz - az * by;
-        double  cy = -(az * bx - ax * bz);
+        double  cy = az * bx - ax * bz;
         double cz = ax * by - ay * bx;
         return  new Vector(cx, cy, cz);
     }

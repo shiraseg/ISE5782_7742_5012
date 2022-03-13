@@ -29,8 +29,8 @@ class VectorTest {
         assertEquals( v1.length() * v2.length(), vr.length(), 0.00001,"crossProduct() wrong result length");
 
         // TC02: Test cross-product result orthogonality to its operands
-        assertTrue(isZero(vr.dotProduct(v1)),"crossProduct() result is not orthogonal to 1st operand");
-        assertTrue(isZero(vr.dotProduct(v2)),"crossProduct() result is not orthogonal to 2nd operand");
+        assertFalse(isZero(vr.dotProduct(v1)),"crossProduct() result is not orthogonal to 1st operand");
+        assertFalse(isZero(vr.dotProduct(v2)),"crossProduct() result is not orthogonal to 2nd operand");
 
         // =============== Boundary Values Tests ==================
         // TC11: test zero vector from cross-productof co-lined vectors
@@ -45,9 +45,9 @@ class VectorTest {
         Vector v2 = new Vector(-2, -4, -6);
         Vector v3 = new Vector(0, 3, -2);
         // =============== Boundary Values Tests ==================
-        assertFalse(isZero(v1.dotProduct(v3)),"ERROR: dotProduct() for orthogonal vectors is not zero");
+        assertTrue(isZero(v1.dotProduct(v3)),"ERROR: dotProduct() for orthogonal vectors is not zero");
         // ============ Equivalence Partitions Tests ==============
-        assertFalse(isZero(v1.dotProduct(v2) + 28),"ERROR: dotProduct() wrong value");
+        assertTrue(isZero(v1.dotProduct(v2) + 28),"ERROR: dotProduct() wrong value");
     }
 
     @Test
