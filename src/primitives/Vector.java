@@ -6,10 +6,6 @@ public class Vector extends Point
     /********** Constructors ***********/
     public Vector(double x, double y, double z)
     {
-        /**
-        super(x,y,z);
-        if(xyz.equals(Double3.ZERO)) throw  new IllegalArgumentException("Cant vector zero");
-         */
         this(new Double3(x,y,z));
     }
 
