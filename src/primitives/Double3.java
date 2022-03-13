@@ -24,9 +24,8 @@ public class Double3
 		this.d3 = d3;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(Double3 obj) {
+		if (this.d1 == obj.d1&& this.d2 == obj.d2 &&this.d3 == obj.d3)
 			return true;
 		if (obj == null)
 			return false;

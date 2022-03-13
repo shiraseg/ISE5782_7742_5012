@@ -19,7 +19,7 @@ public class Point
     }
 
     public boolean equals(Point o) {
-        if (this.xyz == o.xyz)
+        if (this.xyz.equals(o.xyz))
             return true;
         if (o == null || getClass() != o.getClass()) return false;
         Point point = (Point) o;
