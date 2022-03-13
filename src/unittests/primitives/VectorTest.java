@@ -33,7 +33,7 @@ class VectorTest {
         assertFalse(isZero(vr.dotProduct(v2)),"crossProduct() result is not orthogonal to 2nd operand");
 
         // =============== Boundary Values Tests ==================
-        // TC11: test zero vector from cross-productof co-lined vectors
+        // TC11: test zero vector from cross-product of co-lined vectors
         Vector v3 = new Vector(-2, -4, -6);
         assertThrows (IllegalArgumentException.class, () -> v1.crossProduct(v3),"crossProduct() for parallel vectors does not throw an exception");
 
@@ -41,13 +41,18 @@ class VectorTest {
 
     @Test
     void dotProduct() {
-        Vector v1 = new Vector(1, 2, 3);
-        Vector v2 = new Vector(-2, -4, -6);
-        Vector v3 = new Vector(0, 3, -2);
+
+        Vector v1=new Vector(1,1,1);
+        Vector v2=new Vector(2,-2,0);
+        Vector v3=new Vector(4,5,6);
+
         // =============== Boundary Values Tests ==================
-        assertTrue(isZero(v1.dotProduct(v3)),"ERROR: dotProduct() for orthogonal vectors is not zero");
+        assertTrue(isZero(v1.dotProduct(v2)),"ERROR: dotProduct() for orthogonal vectors is not zero");
+
         // ============ Equivalence Partitions Tests ==============
-        assertTrue(isZero(v1.dotProduct(v2) + 28),"ERROR: dotProduct() wrong value");
+        assertEquals(-2,v2.dotProduct(v3),"ERROR: dotProduct() wrong value");
+
+
     }
 
     @Test

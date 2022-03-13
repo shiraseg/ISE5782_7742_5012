@@ -10,10 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class SphereTest {
 
     @Test
-    void getNormal() {
-        Sphere s1 = new Sphere(new Point(0,0,0),5);
-        Point p = new Point(5,0,0);
-        Vector n = p.subtract(new Point(0,0,0)).normalize();
-        assertEquals(n, s1.getNormal(new Point(0,0,0)));
+    void getNormal()
+    {
+       Point center=new Point(-2,0,0);
+       Sphere sphere=new Sphere(center,2);
+       Point pOnSphere=new Point(-2,0,2);
+       Vector normal=center.subtract(pOnSphere);
+       assertEquals(normal,sphere.getNormal(pOnSphere),"ERROR: wrong normal on sphere");
     }
 }

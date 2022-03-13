@@ -21,12 +21,19 @@ class PointTest {
     }
 
     @Test
-    void distanceSquared() {
+    void distanceSquared()
+    {
+        Point point1=new Point(2,1,1);
+        Point point2=new Point(0,1,1);
+        assertEquals(4,point1.distanceSquared(point2),"ERROR: wrong distance squared.");
     }
 
     @Test
     void distance()
     {
+        Point point1=new Point(1,1,1);
+        Point point2=new Point(0,1,1);
+        assertEquals(1,point1.distance(point2),"ERROR: wrong distance between points.");
 
     }
 }
