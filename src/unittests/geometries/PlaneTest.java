@@ -31,7 +31,7 @@ class PlaneTest {
                 "Constructed a plane with tow equal points");
 
         //TC01: same ray
-        assertThrows( IllegalArgumentException.class, () -> new Plane(new Point(0,0,1),new Point(1,0,0),new Point(1,2,1)),
+        assertThrows( IllegalArgumentException.class, () -> new Plane(new Point(0,0,1),new Point(0,0,7),new Point(0,2,3)),
                 "Constructed a plane with tow points on the same ray");
     }
 

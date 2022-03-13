@@ -15,7 +15,7 @@ public class Vector extends Point
 
     protected Vector(Double3 xyz) {
         super(xyz);
-        if(xyz.equals(Double3.ZERO)) throw  new IllegalArgumentException("Cant vector zero");
+        if(xyz.equals(Double3.ZERO)) throw new IllegalArgumentException("Cant vector zero");
     }
 
     /************** Operations ***************/
@@ -34,12 +34,6 @@ public class Vector extends Point
 
     public Vector scale(double scalingFactor)
     {
-        /**
-        double helpX=scalingFactor*this.xyz.d1;
-        double helpY=scalingFactor*this.xyz.d2;
-        double helpZ=scalingFactor*this.xyz.d3;
-        return new Vector(helpX,helpY,helpZ);
-         */
         return new Vector(xyz.scale(scalingFactor));
     }
 
@@ -67,13 +61,11 @@ public class Vector extends Point
 
     public double length()
     {
-        //return super.distance(this);
         return  Math.sqrt(lengthSquared());
     }
 
     public double lengthSquared()
     {
-        //return super.distanceSquared(this);
         return xyz.d1 * xyz.d1 +
                 xyz.d2 * xyz.d2 +
                 xyz.d3 * xyz.d3;
@@ -81,7 +73,6 @@ public class Vector extends Point
 
     public Vector normalize()
     {
-        //return new Vector(xyz.reduce(length()));
         double len = length();
         return new Vector(xyz.reduce((len)));
     }
