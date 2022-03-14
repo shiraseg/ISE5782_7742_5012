@@ -13,14 +13,16 @@ class CylinderTest {
     @Test
     void getNormal()
     {
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: There is a simple single test here
+        Cylinder cy = new Cylinder(
+                new Ray(new Point(0, 0, 1), new Vector(0, 0, 1)),
+                2,
+                3);
+        // test for point on first disk
+        assertEquals(new Vector(0,0, 1), cy.getNormal(new Point(0, 1, 1)));
 
-            // ============ Equivalence Partitions Tests ==============
-            // TC01: There is a simple single test here
-            Cylinder cy = new Cylinder(
-                    new Ray(new Point(0, 0, 1), new Vector(0, 0, 1)),
-                    2,
-                    3);
-            assertEquals(new Vector(0,0, 1), cy.getNormal(new Point(0, 0, 4)));
+        assertEquals(new Vector(0,1, 0), cy.getNormal(new Point(0, 1, 4)));
 
     }
 }
