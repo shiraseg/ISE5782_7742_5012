@@ -57,8 +57,9 @@ public class Plane implements Geometry {
      *  getter for _normal Vector
      * @return the infamous normal
      */
-    public Vector getNormal() {
-        return _normal;
+    public Vector getNormal()
+    {
+       return this._normal;
     }
 
     /**
