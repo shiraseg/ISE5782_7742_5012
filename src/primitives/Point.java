@@ -18,13 +18,13 @@ public class Point
         this.xyz=xyz;
     }
 
-   /** public boolean equals(Point o) {
-        if (this.xyz.equals(o.xyz))
-            return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Point point = (Point) o;
-        return Objects.equals(xyz, point.xyz);
-    }*/
+    public double getX() {
+        return xyz.d1;
+    }
+
+    public double getY() {
+        return xyz.d2;
+    }
    @Override
    public boolean equals(Object o) {
        if (this == o) return true;

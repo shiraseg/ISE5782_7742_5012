@@ -2,6 +2,8 @@ package primitives;
 
 import java.util.Objects;
 
+import static primitives.Util.isZero;
+
 public class Ray {
     final Point p0;
     final Vector dir;
@@ -38,5 +40,12 @@ public class Ray {
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normalize();
+    }
+
+    public Point getPoint(double t2) {
+        if (isZero(t2)){
+            return  p0;
+        }
+        return p0.add(dir.normalize().scale(t2));
     }
 }

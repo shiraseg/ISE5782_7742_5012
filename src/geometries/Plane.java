@@ -45,7 +45,6 @@ public class Plane implements Geometry {
         Vector U = y.subtract(x);
         Vector V = z.subtract(x);
         Vector N = U.crossProduct(V);
-        //right hand rule
         this._normal = N.normalize();
     }
 
@@ -86,7 +85,7 @@ public class Plane implements Geometry {
         if (isZero(nv))
             return null;
 
-        Vector P0_Q= P0.subtract(_q0);
+        Vector P0_Q= _q0.subtract(P0);
         double t = alignZero( n.dotProduct(P0_Q)/nv);
         // if t<0 thn the ray is not in the right direction
         //if t==0 the ray origin alay on the
@@ -95,10 +94,5 @@ public class Plane implements Geometry {
             return List.of(P);
         }
         return null ;
-    }
-
-    @Override
-    public List<Point> findIntsersections(Ray ray) {
-        return null;
     }
 }

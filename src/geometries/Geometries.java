@@ -3,11 +3,45 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Geometries implements  Intersectable{
+
+    protected List<Intersectable>intersectablesList;
+
+    public Geometries() {
+        intersectablesList = new LinkedList<>();
+    }
+
+    public Geometries(Intersectable... intersectables)
+    {
+        intersectablesList = new LinkedList<>();
+        Collections.addAll(intersectablesList, intersectables);
+
+    }
+
+    public void add(Intersectable...intersectables){
+        Collections.addAll(intersectablesList,intersectables);
+    }
+
     @Override
-    public List<Point> findIntsersections(Ray ray) {
-        return null;
+    public List<Point> findIntersections(Ray ray)
+    {
+        List<Point> result = null;
+        for (var item: intersectablesList) {
+            List<Point> itemList = item.findIntersections(ray);
+            if(itemList!=null)
+            {
+                if(result==null)
+                {
+                    result=new LinkedList<>();
+                }
+                result.addAll(itemList);
+            }
+        }
+        return result;
     }
 }
+

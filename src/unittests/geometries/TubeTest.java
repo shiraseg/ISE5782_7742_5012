@@ -32,4 +32,9 @@ class TubeTest {
         Tube t = new Tube(new Ray(new Point(1,1,1), new Vector(0,0,1)),2);
         assertEquals(new Vector(1,1,0).normalize(),t.getNormal(new Point(2,2,2)));
     }
+
+
+    @Test
+    void FindIntersections() {
+    }
 }

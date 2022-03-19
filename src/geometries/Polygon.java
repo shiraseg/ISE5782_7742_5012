@@ -93,9 +93,4 @@ public class Polygon implements Geometry {
 	public List<Point> findIntersections(Ray ray) {
 		return null;
 	}
-
-	@Override
-	public List<Point> findIntsersections(Ray ray) {
-		return null;
-	}
 }

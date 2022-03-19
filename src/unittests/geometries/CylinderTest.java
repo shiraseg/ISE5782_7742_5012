@@ -25,4 +25,8 @@ class CylinderTest {
         assertEquals(new Vector(0,1, 0), cy.getNormal(new Point(0, 1, 4)));
 
     }
+
+    @Test
+    void FindIntersections() {
+    }
 }

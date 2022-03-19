@@ -14,19 +14,13 @@ public class Vector extends Point
         if(xyz.equals(Double3.ZERO)) throw new IllegalArgumentException("Cant vector zero");
     }
 
+    @Override
+    public String toString() {
+        return "Vector{" +
+                "xyz=" + xyz +
+                '}';
+    }
     /************** Operations ***************/
-    /**
-    public Vector add(Vector v)
-    {
-        return (Vector) super.add(v);
-    }
-
-
-    public Vector substract(Vector v)
-    {
-        return super.subtract(v);
-    }
-     */
 
     public Vector scale(double scalingFactor)
     {
@@ -70,20 +64,14 @@ public class Vector extends Point
     public Vector normalize()
     {
         double len = length();
+        if(len == 0)
+            throw new ArithmeticException("Divide by zero!");
         return new Vector(xyz.reduce((len)));
     }
 
-    @Override
-    public boolean equals(Object obj)
+    public boolean isZeroVector()
     {
-        return super.equals(obj);
-    }
-
-    @Override
-    public String toString() {
-        return "Vector{" +
-                "xyz=" + xyz +
-                '}';
+        return xyz.equals(Double3.ZERO);
     }
 
 }
