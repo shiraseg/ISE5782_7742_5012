@@ -27,8 +27,10 @@ public class Camera {
         return distance;
     }
 
-    public Camera(Vector vTo, Vector vUp, int i, int j)         /*constructor*/ {
+    public Camera(Point p0, Vector vTo, Vector vUp)         /*constructor*/
+    {
         if (vTo.dotProduct(vUp) == 0) throw new IllegalArgumentException("ERROR! two vectors arent orthogonal!");
+        this.loc=p0;
         this.vTo = vTo.normalize();
         this.vUp = vUp.normalize();
         this.vRight = vTo.crossProduct(vUp).normalize();
