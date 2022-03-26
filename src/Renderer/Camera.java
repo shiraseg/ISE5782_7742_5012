@@ -29,7 +29,7 @@ public class Camera {
 
     public Camera(Point p0, Vector vTo, Vector vUp)         /*constructor*/
     {
-        if (vTo.dotProduct(vUp) == 0) throw new IllegalArgumentException("ERROR! two vectors arent orthogonal!");
+        if (vTo.dotProduct(vUp) != 0) throw new IllegalArgumentException("ERROR! two vectors arent orthogonal!");
         this.loc=p0;
         this.vTo = vTo.normalize();
         this.vUp = vUp.normalize();
@@ -51,6 +51,32 @@ public class Camera {
 
     public Ray constructRay(int nX, int nY, int j, int i)
     {
-        return null;
+        Point pCenter=this.loc.add(this.vTo.scale(this.distance));
+        double rX=this.width/nX;
+        double rY=this.height/nY;
+
+        double xj=(j-(nX-1)/2)*rX;
+        double yi=-(i-(nY-1)/2)*rY;
+
+        Point p1=this.vRight.scale(xj).add(this.vUp.scale(yi));
+        /*Point pIJ=new Point(pCenter.getX()+ p1.getX(),pCenter.getY()+ p1.getY(),pCenter.getZ()+ p1.getZ());*/
+
+        Point pIJ=pCenter;
+
+        if(xj!=0)
+        {
+            pIJ=pIJ.add(vRight.scale(xj));
+        }
+
+        if(yi!=0)
+        {
+            pIJ=pIJ.add(vUp.scale(yi));
+        }
+
+        Vector vIJ=pIJ.subtract(this.loc);
+        Ray rayThrough= new Ray(this.loc,vIJ);
+
+        return rayThrough;
+
     }
 }
