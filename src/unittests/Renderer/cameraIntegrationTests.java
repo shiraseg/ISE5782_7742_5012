@@ -15,16 +15,11 @@ import java.util.List;
 public class cameraIntegrationTests
 {
 
-    private void countIntersections(Camera cam, Intersectable geo, int expected)
+    private int countIntersections(Camera cam, Intersectable geo, int nX,int nY)
     {
         int count = 0;
 
         List<Point> allIntersections = null;
-
-        cam.setVPSize(3, 3);
-        cam.setVPDistance(1);
-        int nX =3;
-        int nY =3;
 
         /**
          * Going over all the intersection points and adding them in the list+counting them.
@@ -47,16 +42,7 @@ public class cameraIntegrationTests
             }
         }
 
-        System.out.format("there is %d points:%n", count);
-        if (allIntersections != null) {
-            for (var item : allIntersections) {
-                System.out.println(item);
-            }
-        }
-
-        System.out.println();
-
-        assertEquals(expected, count, "Wrong amount of intersections");
+        return count;
     }
 
 
@@ -70,23 +56,25 @@ public class cameraIntegrationTests
 
     @Test
     public void cameraRaySphereIntegration() {
-        Camera cam1 = new Camera(new Point(0,0,0), new Vector(0, 0, -1), new Vector(0, -1, 0));
-        Camera cam2 = new Camera(new Point(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, -1, 0));
+        Camera cam1 = new Camera(new Point(0,0,0), new Vector(0, 0, -1), new Vector(0, -1, 0))
+                .setVPSize(3,3).setVPDistance(1);
+        Camera cam2 = new Camera(new Point(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, -1, 0))
+                .setVPSize(3,3).setVPDistance(1);
 
         // TC01: The sphere is small and far from the VP => 2 points
-        countIntersections(cam1, new Sphere(new Point(0, 0, -3),1), 2);
+        assertEquals(2,countIntersections(cam1,new Sphere(new Point(0, 0, -3),1),3,3),"Wrong amount of intersections");
 
         // TC02:The sphere is big and close => 18 points
-        countIntersections(cam2, new Sphere(new Point(0, 0, -2.5),2.5), 18);
+        assertEquals(18,countIntersections(cam2, new Sphere(new Point(0, 0, -2.5),2.5),3,3),"Wrong amount of intersections");
 
         // TC03: The sphere is medium => 10 points
-        countIntersections(cam2, new Sphere( new Point(0, 0, -2),2), 10);
+       assertEquals(10,countIntersections(cam2, new Sphere( new Point(0, 0, -2),2), 3,3),"Wrong amount of intersections");
 
         // TC04: The camera is inside the Sphere => 9 points
-        countIntersections(cam2, new Sphere( new Point(0, 0, -1),4), 9);
+        assertEquals(9,countIntersections(cam2, new Sphere( new Point(0, 0, -1),4), 3,3),"Wrong amount of intersections");
 
         // TC05: The sphere is behind the camera => 0 points
-        countIntersections(cam1, new Sphere( new Point(0, 0, 1),0.5), 0);
+        assertEquals(0,countIntersections(cam1, new Sphere( new Point(0, 0, 1),0.5), 3,3),"Wrong amount of intersections");
     }
 
     /**Plane integration*/
@@ -94,32 +82,49 @@ public class cameraIntegrationTests
     @Test
     public void cameraRayPlaneIntegration()
     {
-        Camera cam = new Camera(new Point(0,0,0), new Vector(0, 0, -1), new Vector(0, -1, 0));
+        Camera cam = new Camera(new Point(0,0,0), new Vector(0, 0, -1), new Vector(0, -1, 0))
+                .setVPSize(3,3).setVPDistance(1);
 
         // TC01: The plane is against camera => 9 points
-        countIntersections(cam, new Plane(new Point(0, 0, -5), new Vector(0, 0, 1)), 9);
+        assertEquals(9,
+                countIntersections(cam, new Plane(new Point(0, 0, -5), new Vector(0, 0, 1)),3,3 ),
+                "Wrong amount of intersections");
 
         // TC02: The Plane is with small angle => 9 points
-        countIntersections(cam, new Plane(new Point(0, 0, -5), new Vector(0, 1, 2)), 9);
+        assertEquals(9,
+                countIntersections(cam, new Plane(new Point(0, 0, -5), new Vector(0, 1, 2)), 3,3),
+                "Wrong amount of intersections");
 
         // TC03: The plane is parallel to lower rays => 6 points
-        countIntersections(cam, new Plane(new Point(0, 0, -5), new Vector(0, 1, 1)), 6);
+        assertEquals(6,
+                countIntersections(cam, new Plane(new Point(0, 0, -5), new Vector(0, 1, 1)), 3,3),
+                "Wrong amount of intersections");
+
+        Camera cam2=new Camera(new Point(0,0,0.5),new Vector(0,0,-1),new Vector(0,1,0))
+                .setVPDistance(1).setVPSize(3,3);
 
         // TC04: The plane is behind the camera => 0 points
-        countIntersections(cam, new Plane(new Point(0, 0, -5), new Vector(0, 1, 1)), 6);
+        assertEquals(0,
+                countIntersections(cam2, new Plane(new Point(0, -5, 0), new Vector(-1, -9, 13)), 3,3),
+                "Wrong amount of intersections");
     }
 
     /**Triangle integrations*/
 
     @Test
     public void cameraRayTriangleIntegration() {
-        Camera cam = new Camera(new Point(0,0,0), new Vector(0, 0, -1), new Vector(0, -1, 0));
+        Camera cam = new Camera(new Point(0,0,0), new Vector(0, 0, -1), new Vector(0, -1, 0))
+                .setVPSize(3,3).setVPDistance(1);
 
         // TC01: The triangle is small => 1 point
-        countIntersections(cam, new Triangle(new Point(1, 1, -2), new Point(-1, 1, -2), new Point(0, -1, -2)), 1);
+        assertEquals(1,
+                countIntersections(cam, new Triangle(new Point(1, 1, -2), new Point(-1, 1, -2), new Point(0, -1, -2)), 3,3),
+                "Wrong amount of intersections");
 
         // TC02:  The triangle is medium triangle => 2 points
-        countIntersections(cam, new Triangle(new Point(1, 1, -2), new Point(-1, 1, -2), new Point(0, -20, -2)), 2);
+        assertEquals(2,
+                countIntersections(cam, new Triangle(new Point(1, 1, -2), new Point(-1, 1, -2), new Point(0, -20, -2)), 3,3),
+                "Wrong amount of intersections");
     }
 
 }

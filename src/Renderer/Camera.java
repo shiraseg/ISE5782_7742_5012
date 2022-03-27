@@ -4,6 +4,7 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import static primitives.Util.isZero;
 
 
 public class Camera {
@@ -58,17 +59,14 @@ public class Camera {
         double xj=(j-(nX-1)/2)*rX;
         double yi=-(i-(nY-1)/2)*rY;
 
-        Point p1=this.vRight.scale(xj).add(this.vUp.scale(yi));
-        /*Point pIJ=new Point(pCenter.getX()+ p1.getX(),pCenter.getY()+ p1.getY(),pCenter.getZ()+ p1.getZ());*/
-
         Point pIJ=pCenter;
 
-        if(xj!=0)
+        if(!isZero(xj))
         {
             pIJ=pIJ.add(vRight.scale(xj));
         }
 
-        if(yi!=0)
+        if(!isZero(yi))
         {
             pIJ=pIJ.add(vUp.scale(yi));
         }
