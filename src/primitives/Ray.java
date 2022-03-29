@@ -1,10 +1,12 @@
 package primitives;
 
+import java.util.List;
 import java.util.Objects;
 
 import static primitives.Util.isZero;
 
-public class Ray {
+public class Ray
+{
     final Point p0;
     final Vector dir;
 
@@ -47,5 +49,31 @@ public class Ray {
             return  p0;
         }
         return p0.add(dir.normalize().scale(t2));
+    }
+
+    public Point findClosestPoint(List<Point> intersections)
+    {
+        //the list is empty
+        if(intersections==null)
+        {
+            return null;
+        }
+
+        double min=Double.MAX_VALUE;
+        Point closestPoint=null;
+
+        //Loop that goes over the list and finds the closest point in it.
+        for(int i=0;i<intersections.size();i++)
+        {
+            double distance= intersections.get(i).distance(this.p0);
+            if(distance<min)
+            {
+               closestPoint=intersections.get(i);
+               min=distance;
+            }
+        }
+
+        return closestPoint;
+
     }
 }

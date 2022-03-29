@@ -6,6 +6,9 @@ import java.util.Objects;
 
 public class Point
 {
+
+    public final static Point ZERO = new Point(0d, 0d, 0d);
+
     final Double3 xyz;
 
     public Point(double x, double y, double z)
@@ -38,11 +41,6 @@ public class Point
        Point point = (Point) o;
        return xyz.equals(((Point) o).xyz);
    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(xyz);
-    }
 
     @Override
     public String toString() {
