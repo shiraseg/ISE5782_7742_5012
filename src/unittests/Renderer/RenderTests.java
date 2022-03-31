@@ -3,7 +3,7 @@ package unittests.Renderer;
 import elements.AmbientLight;
 import org.junit.jupiter.api.Test;
 
-import lighting.AmbientLight;
+import elements.AmbientLight;
 import geometries.*;
 import primitives.*;
 import Renderer.*;
@@ -37,17 +37,17 @@ public class RenderTests {
         Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0))
                 .setVPSize(500,500)
                 .setVPDistance(100);
-
-        ImageWriter imageWriter = new ImageWriter("base render test 222", 1000, 1000);
-        Render render = new Render() //
-                .setImageWriter(imageWriter) //
-                .setScene(scene) //
-                .setCamera(camera) //
-                .setRayTracer(new RayTracerBasic(scene));
-
-        render.renderImage();
-        render.printGrid(100, new Color(java.awt.Color.YELLOW));
-        render.writeToImage();
+//
+//        ImageWriter imageWriter = new ImageWriter("base render test 222", 1000, 1000);
+//        Render render = new Render() //
+//                .setImageWriter(imageWriter) //
+//                .setScene(scene) //
+//                .setCamera(camera) //
+//                .setRayTracer(new RayTracerBasic(scene));
+//
+//        render.renderImage();
+//        render.printGrid(100, new Color(java.awt.Color.YELLOW));
+//        render.writeToImage();
 
     }
 
