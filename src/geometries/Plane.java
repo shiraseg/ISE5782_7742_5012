@@ -22,11 +22,6 @@ public class Plane implements Geometry {
         return _q0.equals(plane._q0) && _normal.equals(plane._normal);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(_q0, _normal);
-    }
-
     public Plane(Point q0, Vector normal) {
         _q0 = q0;
         _normal = normal;
@@ -72,27 +67,43 @@ public class Plane implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray)
-    {
-        // look at powerpoint 4 how to make the function(Ray Plane intersection))
-        Point P0=ray.getP0();
-        Vector v=ray.getDir();
-        Vector n=_normal;
+    public List<Point> findIntersections(Ray ray) {
+        Point P0 = ray.getP0();
+        Vector v = ray.getDir();
 
-        // denominator
-        double nv = n.dotProduct(v);
+        Vector n = _normal;
 
-        if (isZero(nv))
-            return null;
-
-        Vector P0_Q= _q0.subtract(P0);
-        double t = alignZero( n.dotProduct(P0_Q)/nv);
-        // if t<0 thn the ray is not in the right direction
-        //if t==0 the ray origin alay on the
-        if(t > 0 ) {
-            Point P = P0.add(v.scale(t));
-            return List.of(P);
+        if(_q0.equals(P0)){
+            return  null;
         }
-        return null ;
+
+        Vector P0_Q0 = _q0.subtract(P0);
+
+        //numerator
+        double nP0Q0  = alignZero(n.dotProduct(P0_Q0));
+
+        //
+        if (isZero(nP0Q0 )){
+            return null;
+        }
+
+        //denominator
+        double nv = alignZero(n.dotProduct(v));
+
+        // ray is lying in the plane axis
+        if(isZero(nv)){
+            return null;
+        }
+
+        double  t = alignZero(nP0Q0  / nv);
+
+        if (t <=0){
+            return  null;
+        }
+
+        Point point = ray.getPoint(t);
+
+        return List.of(point);
     }
+
 }

@@ -9,7 +9,7 @@ public class Scene
     public String Name;
     public Color Background;
     public AmbientLight AmbientLight;
-    public Geometries geometries= null;
+    public Geometries geometries=null;
 
     public Scene(String name)
     {
