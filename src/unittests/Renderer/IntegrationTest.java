@@ -12,7 +12,7 @@ import java.util.List;
 
 
 
-public class cameraIntegrationTests
+public class IntegrationTest
 {
 
     private int countIntersections(Camera cam, Intersectable geo, int nX,int nY)

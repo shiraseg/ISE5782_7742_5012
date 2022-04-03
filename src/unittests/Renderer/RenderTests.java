@@ -1,9 +1,8 @@
 package unittests.Renderer;
 
-import elements.AmbientLight;
+import lighting.AmbientLight;
 import org.junit.jupiter.api.Test;
 
-import elements.AmbientLight;
 import geometries.*;
 import primitives.*;
 import Renderer.*;
