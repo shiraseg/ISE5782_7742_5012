@@ -10,7 +10,7 @@ import java.util.Objects;
 import static primitives.Util.*;
 
 
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     final private Point _q0;
     final private Vector _normal;
 

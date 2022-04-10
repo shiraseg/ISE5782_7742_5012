@@ -1,6 +1,6 @@
 package scene;
 
-import elements.AmbientLight;
+import Lighting.AmbientLight;
 import geometries.Geometries;
 import primitives.Color;
 
@@ -23,7 +23,7 @@ public class Scene
         return this;
     }
 
-    public Scene setAmbientLight(elements.AmbientLight ambientLight) {
+    public Scene setAmbientLight(Lighting.AmbientLight ambientLight) {
         AmbientLight = ambientLight;
         return this;
     }
