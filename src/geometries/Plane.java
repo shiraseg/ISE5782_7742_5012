@@ -10,7 +10,8 @@ import java.util.Objects;
 import static primitives.Util.*;
 
 
-public class Plane extends Geometry {
+public class Plane extends Geometry
+{
     final private Point _q0;
     final private Vector _normal;
 
@@ -73,11 +74,12 @@ public class Plane extends Geometry {
 
         Vector n = _normal;
 
-        if(_q0.equals(P0)){
+        if(this._q0.equals(P0))
+        {
             return  null;
         }
 
-        Vector P0_Q0 = _q0.subtract(P0);
+        Vector P0_Q0 = this._q0.subtract(P0);
 
         //numerator
         double nP0Q0  = alignZero(n.dotProduct(P0_Q0));
@@ -104,6 +106,12 @@ public class Plane extends Geometry {
         Point point = ray.getPoint(t);
 
         return List.of(point);
+    }
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray)
+    {
+        return this.findGeoIntersections(ray);
     }
 
 }

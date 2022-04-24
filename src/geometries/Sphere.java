@@ -71,6 +71,12 @@ public class Sphere extends Geometry {
     }
 
     @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray)
+    {
+        return this.findGeoIntersections(ray);
+    }
+
+    @Override
     public String toString() {
         return "Sphere{" +
                 "center=" + center +

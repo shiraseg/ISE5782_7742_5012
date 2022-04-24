@@ -93,4 +93,11 @@ public class Polygon extends Geometry {
 	public List<Point> findIntersections(Ray ray) {
 		return null;
 	}
+
+	@Override
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray)
+	{
+		List<Intersectable.GeoPoint> intersections = plane.findGeoIntersections(ray);
+		
+	}
 }

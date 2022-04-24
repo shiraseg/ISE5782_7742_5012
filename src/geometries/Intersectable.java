@@ -5,27 +5,23 @@ import primitives.Ray;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Intersectable
-{
+public abstract class Intersectable {
     abstract public List<Point> findIntersections(Ray ray);
 
     //An internal Assistance Department-PDS
-    public static class GeoPoint
-    {
+    public static class GeoPoint {
 
         public Geometry geometry;
         public Point point;
 
         //constructor.
-        public GeoPoint(Geometry geometry, Point point)
-        {
+        public GeoPoint(Geometry geometry, Point point) {
             this.geometry = geometry;
             this.point = point;
         }
 
         @Override
-        public boolean equals(Object o)
-        {
+        public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             GeoPoint geoPoint = (GeoPoint) o;
@@ -33,8 +29,7 @@ public abstract class Intersectable
         }
 
         @Override
-        public String toString()
-        {
+        public String toString() {
             return "GeoPoint:" +
                     "geometry=" + geometry +
                     ", point=" + point +
@@ -46,7 +41,7 @@ public abstract class Intersectable
 
     public List<GeoPoint> findGeoIntersections(Ray ray)
     {
-
+        return this.findGeoIntersectionsHelper(ray);
     }
 
 }
