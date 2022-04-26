@@ -1,4 +1,4 @@
-package lighting;
+package Lighting;
 
 import primitives.Color;
 import primitives.Double3;

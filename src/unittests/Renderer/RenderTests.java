@@ -1,6 +1,6 @@
 package unittests.Renderer;
 
-import lighting.AmbientLight;
+import Lighting.AmbientLight;
 import org.junit.jupiter.api.Test;
 
 import geometries.*;
@@ -36,7 +36,7 @@ public class RenderTests {
         Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0))
                 .setVPSize(500,500)
                 .setVPDistance(100);
-//
+
 //        ImageWriter imageWriter = new ImageWriter("base render test 222", 1000, 1000);
 //        Render render = new Render() //
 //                .setImageWriter(imageWriter) //
