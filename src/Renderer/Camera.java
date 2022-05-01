@@ -155,7 +155,6 @@ public class Camera {
             for (int i = 0; i< imageWriter.getNy(); i++)
                 if(i%interval==0 || j%interval==0)
                     imageWriter.writePixel(j, i, color);
-
     }
 
 

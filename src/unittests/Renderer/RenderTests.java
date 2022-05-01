@@ -42,6 +42,7 @@ public class RenderTests {
         camera.printGrid(100, new Color(java.awt.Color.YELLOW));
         camera.writeToImage();
     }
+
     @Test
     public void basicRenderMultiColorTest() {
         Scene scene = new Scene.SceneBuilder("Test scene")//

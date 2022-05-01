@@ -25,8 +25,6 @@ class CylinderTest {
         assertEquals(new Vector(0,0, 1), cy.getNormal(new Point(0, 1, 4)));
 
         assertEquals(new Vector(0,1, 0), cy.getNormal(new Point(0, 2, 3)));
-
-
     }
 
     @Test
