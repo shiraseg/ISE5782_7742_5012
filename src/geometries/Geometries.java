@@ -43,5 +43,20 @@ public class Geometries extends Intersectable {
         }
         return result;
     }
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        List<GeoPoint> intersections = null;
+        for (Intersectable geometry : intersectablesList) {
+            var geoIntersections = geometry.findGeoIntersections(ray);
+            if (geoIntersections != null) {
+                if (intersections == null) {
+                    intersections = new LinkedList<>();
+                }
+                intersections.addAll(geoIntersections);
+            }
+        }
+        return intersections;
+    }
 }
 

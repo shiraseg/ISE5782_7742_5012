@@ -23,8 +23,8 @@ public class Camera {
     private double width;       // ViewPlane width
     private double height;      // ViewPlane height
 
-    private ImageWriter _imageWriter;
-    private RayTracerBase _rayTracer;
+    private ImageWriter imageWriter;
+    private RayTracerBase rayTracer;
 
     public void setP0(Point p0) {
         this.p0 = p0;
@@ -42,13 +42,8 @@ public class Camera {
         this.vRight = vRight;
     }
 
-    /**
-     *
-     * @param p0 origin  point in 3D space
-     * @param vUp vechu
-     * @param vTo vechulei
-     */
-    public Camera(Point p0, Vector vTo, Vector vUp) {
+    public Camera(Point p0, Vector vTo, Vector vUp)
+    {
         if(!isZero(vUp.dotProduct(vTo))){
             throw  new IllegalArgumentException("vTo and vUp should be orthogonal");
         }
@@ -123,55 +118,54 @@ public class Camera {
     }
 
     public void writeToImage() {
-        if(_imageWriter == null)
-            throw new MissingResourceException("missing imageawriter", "Camera", "in writeTorImage");
-        _imageWriter.writeToImage();
+        if(imageWriter == null)
+            throw new MissingResourceException("missing image writer", "Camera", "in writeTorImage");
+        imageWriter.writeToImage();
     }
 
-    public void renderImage() {
+    public Camera renderImage() {
         try {
-            if (_imageWriter == null) {
+            if (imageWriter == null) {
                 throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
             }
-            if (_rayTracer == null) {
+            if (rayTracer == null) {
                 throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
             }
 
             //rendering the image
-            int nX = _imageWriter.getNx();
-            int nY = _imageWriter.getNy();
+            int nX = imageWriter.getNx();
+            int nY = imageWriter.getNy();
             for (int i = 0; i < nY; i++) {
                 for (int j = 0; j < nX; j++) {
                     Ray ray = constructRay(nX, nY, j, i);
-                    Color pixelColor = _rayTracer.traceRay(ray);
-                    _imageWriter.writePixel(j, i, pixelColor);
+                    Color pixelColor = rayTracer.traceRay(ray);
+                    imageWriter.writePixel(j, i, pixelColor);
                 }
             }
         } catch (MissingResourceException e) {
             throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
         }
+        return this;
     }
 
     public void printGrid(int interval, Color color) {
-        if(_imageWriter == null)
-            throw new MissingResourceException("missing imageawriter", "Camera", "in print Grid");
-        for (int j = 0; j< _imageWriter.getNx();j++){
-            for (int i = 0; i< _imageWriter.getNy();i++){
-                //grid 16 X 10
-                if(j% interval == 0 || i% interval ==0){
-                    _imageWriter.writePixel(j, i, color);
-                }
-            }
-        }
+        if(imageWriter == null)
+            throw new MissingResourceException("missing image writer", "Camera", "in print Grid");
+        for (int j = 0; j< imageWriter.getNx(); j++)
+            for (int i = 0; i< imageWriter.getNy(); i++)
+                if(i%interval==0 || j%interval==0)
+                    imageWriter.writePixel(j, i, color);
+
     }
 
+
     public Camera setImageWriter(ImageWriter imageWriter) {
-        this._imageWriter = imageWriter;
+        this.imageWriter = imageWriter;
         return this;
     }
 
     public Camera setRayTracer(RayTracerBase rayTracer) {
-        this._rayTracer = rayTracer;
+        this.rayTracer = rayTracer;
         return this;
     }
 }
