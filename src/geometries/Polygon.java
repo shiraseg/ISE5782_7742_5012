@@ -98,6 +98,6 @@ public class Polygon extends Geometry {
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray)
 	{
 		List<Intersectable.GeoPoint> intersections = plane.findGeoIntersections(ray);
-		
+		return null;
 	}
 }
