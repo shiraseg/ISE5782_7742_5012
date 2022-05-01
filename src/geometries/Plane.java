@@ -111,7 +111,9 @@ public class Plane extends Geometry
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray)
     {
-        return this.findGeoIntersections(ray);
+        List<Point> points = findIntersections(ray);
+        if (points == null) return null;
+        return points.stream().map(p -> new GeoPoint(null, p)).toList();
     }
 
 }

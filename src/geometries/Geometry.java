@@ -8,6 +8,7 @@ import primitives.Vector;
 import java.util.List;
 
 public abstract class Geometry extends Intersectable {
+
     abstract public Vector getNormal(Point p);
 
    // List<Point> findIntersections(Ray ray);

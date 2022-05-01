@@ -9,7 +9,8 @@ public abstract class Intersectable {
     abstract public List<Point> findIntersections(Ray ray);
 
     //An internal Assistance Department-PDS
-    public static class GeoPoint {
+    public static class GeoPoint
+    {
 
         public Geometry geometry;
         public Point point;
