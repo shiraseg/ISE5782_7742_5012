@@ -75,7 +75,7 @@ public class Sphere extends Geometry {
     {
         List<Point> points= findIntersections(ray);
         if(points==null) return null;
-        return points.stream().map(p->new GeoPoint(null, p)).toList();
+        return points.stream().map(p->new GeoPoint(this, p)).toList();
 
     }
 
