@@ -49,14 +49,15 @@ public class Ray
 
     public Point findClosestPoint(List<Point> intersections)
     {
-        return intersections == null ? null
-                :findClosestGeoPoint(intersections.stream().map(p->new GeoPoint(null,p)).toList()).point;
+        return intersections == null || intersections.isEmpty() ? null
+                : findClosestGeoPoint(intersections.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+
     }
 
     public GeoPoint findClosestGeoPoint(List<GeoPoint> intersections)
     {
         //the list is empty
-        if(intersections==null)
+        if(intersections==null|| intersections.isEmpty())
         {
             return null;
         }
@@ -74,6 +75,16 @@ public class Ray
                 min=distance;
             }
         }
+
+//        double minDistance = Double.MAX_VALUE;
+//        double pointDistance = 0d;
+//        for (GeoPoint geopoint : intersections) {
+//            pointDistance = geopoint.point.distanceSquared(p0);
+//            if (pointDistance < minDistance) {
+//                minDistance = pointDistance;
+//                closestPoint = geopoint;
+//            }
+//        }
 
         return closestPoint;
     }
