@@ -124,36 +124,12 @@ public class Camera {
     }
 
     public Camera renderImage() {
-//        try {
-//            if (imageWriter == null) {
-//                throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
-//            }
-//            if (rayTracer == null) {
-//                throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
-//            }
-//
-//            //rendering the image
-//            int nX = imageWriter.getNx();
-//            int nY = imageWriter.getNy();
-//            for (int i = 0; i < nY; i++) {
-//                for (int j = 0; j < nX; j++) {
-//                    Ray ray = constructRay(nX, nY, j, i);
-//                    Color pixelColor = rayTracer.traceRay(ray);
-//                    imageWriter.writePixel(j, i, pixelColor);
-//                }
-//            }
-//        } catch (MissingResourceException e) {
-//            throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
-//        }
-//        return this;
-
-
         try {
             if (imageWriter == null) {
                 throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
             }
             if (rayTracer == null) {
-                throw new MissingResourceException("missing resource", RayTracerBasic.class.getName(), "");
+                throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
             }
 
             //rendering the image
@@ -162,7 +138,7 @@ public class Camera {
             for (int i = 0; i < nY; i++) {
                 for (int j = 0; j < nX; j++) {
                     Ray ray = constructRay(nX, nY, j, i);
-                    Color pixelColor = RayTracerBasic.traceRay(ray);
+                    Color pixelColor = rayTracer.traceRay(ray);
                     imageWriter.writePixel(j, i, pixelColor);
                 }
             }
@@ -170,6 +146,30 @@ public class Camera {
             throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
         }
         return this;
+
+
+//        try {
+//            if (imageWriter == null) {
+//                throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
+//            }
+//            if (rayTracer == null) {
+//                throw new MissingResourceException("missing resource", RayTracerBasic.class.getName(), "");
+//            }
+//
+//            //rendering the image
+//            int nX = imageWriter.getNx();
+//            int nY = imageWriter.getNy();
+//            for (int i = 0; i < nY; i++) {
+//                for (int j = 0; j < nX; j++) {
+//                    Ray ray = constructRay(nX, nY, j, i);
+//                    Color pixelColor = RayTracerBasic.traceRay(ray);
+//                    imageWriter.writePixel(j, i, pixelColor);
+//                }
+//            }
+//        } catch (MissingResourceException e) {
+//            throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
+//        }
+//        return this;
     }
 
     public void printGrid(int interval, Color color) {
