@@ -5,8 +5,8 @@ import primitives.Ray;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Intersectable {
-    abstract public List<Point> findIntersections(Ray ray);
+public abstract class Intersectable
+{
 
     //An internal Assistance Department-PDS
     public static class GeoPoint
@@ -38,7 +38,14 @@ public abstract class Intersectable {
         }
     }
 
-    abstract protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+    public List<Point> findIntersections(Ray ray)
+    {
+        var geoList = findGeoIntersections(ray);
+        return geoList == null ? null
+                : geoList.stream().map(gp -> gp.point).toList();
+
+    }
+        abstract protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
     public List<GeoPoint> findGeoIntersections(Ray ray)
     {
