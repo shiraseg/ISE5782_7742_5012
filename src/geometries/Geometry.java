@@ -1,17 +1,15 @@
 package geometries;
 
-import primitives.Color;
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
-public abstract class Geometry extends Intersectable {
+public abstract class Geometry extends Intersectable
+{
 
     abstract public Vector getNormal(Point p);
 
-   // List<Point> findIntersections(Ray ray);
+    private Material material= new Material();
 
     protected Color emission =Color.BLACK;
 
@@ -20,6 +18,17 @@ public abstract class Geometry extends Intersectable {
     public Color getEmission()
     {
         return this.emission;
+    }
+
+    public Material getMaterial()
+    {
+        return material;
+    }
+
+    public Geometry setMaterial(Material material)
+    {
+        this.material = material;
+        return this;
     }
 
     //setter methode for a builder pattern.
