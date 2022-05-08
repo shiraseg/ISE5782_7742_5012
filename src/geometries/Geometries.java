@@ -26,23 +26,23 @@ public class Geometries extends Intersectable {
         Collections.addAll(intersectablesList,intersectables);
     }
 
-//    @Override
-//    public List<Point> findIntersections(Ray ray)
-//    {
-//        List<Point> result = null;
-//        for (var item: intersectablesList) {
-//            List<Point> itemList = item.findIntersections(ray);
-//            if(itemList!=null)
-//            {
-//                if(result==null)
-//                {
-//                    result=new LinkedList<>();
-//                }
-//                result.addAll(itemList);
-//            }
-//        }
-//        return result;
-//    }
+    @Override
+    public List<Point> findIntersections(Ray ray)
+    {
+        List<Point> result = null;
+        for (var item: intersectablesList) {
+            List<Point> itemList = item.findIntersections(ray);
+            if(itemList!=null)
+            {
+                if(result==null)
+                {
+                    result=new LinkedList<>();
+                }
+                result.addAll(itemList);
+            }
+        }
+        return result;
+    }
 
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
