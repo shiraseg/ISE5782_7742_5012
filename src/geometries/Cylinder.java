@@ -48,10 +48,6 @@ public class Cylinder extends Tube
         return super.getNormal(point);// else the point is on the tube, and we use the get normal function of the tube.(super)
     }
 
-//    @Override
-//    public List<Point> findIntersections(Ray ray) {
-//        return super.findIntersections(ray);
-//    }
     public List<GeoPoint> findGeoIntersectionHelper(Ray ray)
     {
         return super.findGeoIntersectionsHelper(ray);

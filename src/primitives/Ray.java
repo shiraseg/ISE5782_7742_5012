@@ -47,13 +47,6 @@ public class Ray
         return p0.add(dir.normalize().scale(t2));
     }
 
-//    public Point findClosestPoint(List<Point> intersections)
-//    {
-//        return intersections == null || intersections.isEmpty() ? null
-//                : findClosestGeoPoint(intersections.stream().map(p -> new GeoPoint(null, p)).toList()).point;
-//
-//    }
-
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null
                 : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;

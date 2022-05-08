@@ -10,12 +10,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PlaneTest {
+class PlaneTest
+{
 
-    @Test
-    void getNormal() {
-
-    }
 
     @Test
     public void testConstructor()

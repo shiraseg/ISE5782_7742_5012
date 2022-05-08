@@ -67,8 +67,12 @@ public class Plane extends Geometry
         return getNormal();
     }
 
+
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray)
+    {
+        List<Point> points = null;
+
         Point P0 = ray.getP0();
         Vector v = ray.getDir();
 
@@ -105,13 +109,9 @@ public class Plane extends Geometry
 
         Point point = ray.getPoint(t);
 
-        return List.of(point);
-    }
+        points= List.of(point);
 
-    @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray)
-    {
-        List<Point> points = findIntersections(ray);
+
         if (points == null) return null;
         return points.stream().map(p -> new GeoPoint(this, p)).toList();
     }
