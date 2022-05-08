@@ -28,7 +28,9 @@ public class RayTracerBasic extends RayTracerBase {
 
 
     private Color calcColor(GeoPoint point, Ray ray) {
-        return scene.getAmbienLight().getIntensity().add(point.geometry.getEmission())
+//        return scene.getAmbienLight().getIntensity().add(point.geometry.getEmission())
+//                .add(calcLocalEffects(point, ray));
+        return scene.getAmbienLight().getIntensity()
                 .add(calcLocalEffects(point, ray));
 
     }
@@ -39,7 +41,7 @@ public class RayTracerBasic extends RayTracerBase {
         Vector v = ray.getDir().normalize();
         Vector n = gp.geometry.getNormal(gp.point);
         double nv = alignZero(n.dotProduct(v));
-        if (nv == 0) return color;
+        if (nv == 0) return Color.BLACK;
         Material material = gp.geometry.getMaterial();
         for (LightSource lightSource : scene.getLights()) {
             Vector l = lightSource.getL(gp.point);
