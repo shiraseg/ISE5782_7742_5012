@@ -16,6 +16,8 @@ public class RayTracerBasic extends RayTracerBase {
         super(scene);
     }
 
+    private static final double DELTA = 0.1;
+
     @Override
     public Color traceRay(Ray ray) {
         List<GeoPoint> intersection = scene.geometries.findGeoIntersections(ray);
@@ -28,8 +30,6 @@ public class RayTracerBasic extends RayTracerBase {
 
 
     private Color calcColor(GeoPoint point, Ray ray) {
-//        return scene.getAmbienLight().getIntensity().add(point.geometry.getEmission())
-//                .add(calcLocalEffects(point, ray));
         return scene.getAmbienLight().getIntensity()
                 .add(calcLocalEffects(point, ray));
 
@@ -46,14 +46,15 @@ public class RayTracerBasic extends RayTracerBase {
         for (LightSource lightSource : scene.getLights()) {
             Vector l = lightSource.getL(gp.point);
             double nl = alignZero(n.dotProduct(l));
-            if (nl * nv > 0)
-            { // sign(nl) == sing(nv)
+            if (nl * nv > 0) { // sign(nl) == sing(nv)
 
-              // if(unshaded(gp,lightSource,n,nl,nv,l)) {
-                    Color iL = lightSource.getIntensity(gp.point);
-                    color = color.add(
-                            iL.scale(calcDiffusive(material, nl)),
-                            iL.scale(calcSpecular(material, n, l, nl, v)));
+                 if(unshaded(gp,l))
+                 {
+                     Color iL = lightSource.getIntensity(gp.point);
+                     color = color.add(
+                             iL.scale(calcDiffusive(material, nl)),
+                             iL.scale(calcSpecular(material, n, l, nl, v)));
+                 }
 
 
             }
@@ -62,21 +63,26 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
 
-    private Double3 calcDiffusive(Material material, double nl)
-    {
+    private Double3 calcDiffusive(Material material, double nl) {
         return material.kD.scale(Math.abs(nl));
     }
 
     private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
         Vector r = l.subtract(n.scale(l.dotProduct(n) * 2)).normalize();
-        //Vector r = l.add(n.scale(-2*nl));
-        double minusVR = 0-alignZero(r.dotProduct(v));
-        if(minusVR <= 0)
+        double minusVR = 0 - alignZero(r.dotProduct(v));
+        if (minusVR <= 0)
             return Double3.ZERO;
-        return material.kS.scale( Math.pow(Math.max(0, r.dotProduct(v.scale(-1d))), material.getnShininess()));
+        return material.kS.scale(Math.pow(Math.max(0, r.dotProduct(v.scale(-1d))), material.getnShininess()));
     }
 
-
+    private boolean unshaded(GeoPoint gp, Vector l)
+    {
+        Vector lightDirection = l.scale(-1).normalize(); // from point to light source
+        Ray lightRay = new Ray(gp.point , lightDirection);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+        return
+                intersections.isEmpty();
+    }
 
 
 }
