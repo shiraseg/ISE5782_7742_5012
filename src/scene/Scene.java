@@ -20,7 +20,8 @@ public class Scene
         return ambientLight;
     }
 
-    private Scene(SceneBuilder builder) {
+    private Scene(SceneBuilder builder)
+    {
         name = builder.name;
         background = builder.background;
         ambientLight = builder.ambientLight;
@@ -28,7 +29,7 @@ public class Scene
         lights =  builder.lights;
     }
 
-        public List<LightSource> getLights() {
+    public List<LightSource> getLights() {
         return lights;
     }
 

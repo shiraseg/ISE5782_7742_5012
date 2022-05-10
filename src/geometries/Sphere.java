@@ -115,7 +115,11 @@ public class Sphere extends Geometry {
             Point P2 =ray.getPoint(t2);
             points= List.of(P2);
         }
-        return points.stream().map(p->new GeoPoint(this, p)).toList();
+
+        if(points==null)
+            return null;
+        else
+            return points.stream().map(p->new GeoPoint(this, p)).toList();
     }
 
 
