@@ -2,8 +2,8 @@ package primitives;
 
 public class Material
 {
-    public Double3 kD=Double3.ZERO;
-    public Double3 kS=Double3.ZERO;
+    public Double3 kD=Double3.ZERO;//Diffuse
+    public Double3 kS=Double3.ZERO;//Specular
     public Double3 kT=Double3.ZERO;//transparency - שקיפות
     public Double3 kR=Double3.ZERO;//השתקפות -reflection
 
