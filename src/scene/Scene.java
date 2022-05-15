@@ -12,7 +12,7 @@ public class Scene
 {
     private final String name;
     private final Color background;
-    private final AmbientLight ambientLight;
+    private AmbientLight ambientLight;
     public Geometries geometries;
     private List<LightSource> lights=new LinkedList<>();
 
@@ -43,6 +43,12 @@ public class Scene
 
     public AmbientLight getAmbienLight() {
         return ambientLight;
+    }
+
+    public Scene setAmbientLight(AmbientLight ambientLight)
+    {
+        this.ambientLight=ambientLight;
+        return this;
     }
 
 
@@ -90,5 +96,6 @@ public class Scene
             ///
             return scene;
         }
+
     }
 }
