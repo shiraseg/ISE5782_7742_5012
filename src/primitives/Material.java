@@ -8,39 +8,39 @@ public class Material
     public Double3 kR=Double3.ZERO;//השתקפות -reflection
 
     int nShininess=0;
-
-    public Material setkT(Double3 kT) {
+               
+    public Material setKt(Double3 kT) {
         this.kT = kT;
         return this;
     }
 
-    public Material setkR(Double3 kR) {
+    public Material setKr(Double3 kR) {
         this.kR = kR;
         return this;
 
     }
 
-    public Material setkD(Double3 kD)
+    public Material setKd(Double3 kD)
     {
         this.kD = kD;
         return this;
     }
 
     //for the second constructor in Double3
-    public Material setkD(Double kD)
+    public Material setKd(Double kD)
     {
         this.kD=new Double3(kD);
         return this;
     }
 
-    public Material setkS(Double3 kS)
+    public Material setKs(Double3 kS)
     {
         this.kS = kS;
         return this;
     }
 
     //for the second constructor in Double3
-    public Material setkS(Double kS)
+    public Material setKs(Double kS)
     {
         this.kS=new Double3(kS);
         return this;
@@ -52,15 +52,7 @@ public class Material
         return this;
     }
 
-    public Double3 getkD()
-    {
-        return kD;
-    }
 
-    public Double3 getkS()
-    {
-        return kS;
-    }
 
     public int getnShininess()
     {

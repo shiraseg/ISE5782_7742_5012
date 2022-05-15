@@ -5,13 +5,15 @@ import java.util.Objects;
 import geometries.Intersectable.GeoPoint;
 
 
-
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 public class Ray
 {
     final Point p0;
     final Vector dir;
+
+    private static final double DELTA = 0.1;
 
     @Override
     public String toString() {
@@ -39,6 +41,18 @@ public class Ray
         this.p0 = p0;
         this.dir = dir.normalize();
     }
+
+    public Ray(Point point, Vector direction, Vector normal)
+    {
+        //point + normal.scale(±EPSILON)
+        dir = direction.normalize();
+
+        double nv = alignZero(normal.dotProduct(dir));
+
+        Vector normalDelta = normal.scale((nv > 0 ? DELTA : -DELTA));
+        p0 = point.add(normalDelta);
+    }
+
 
     public Point getPoint(double t2) {
         if (isZero(t2)){
@@ -74,16 +88,6 @@ public class Ray
                 min=distance;
             }
         }
-
-//        double minDistance = Double.MAX_VALUE;
-//        double pointDistance = 0d;
-//        for (GeoPoint geopoint : intersections) {
-//            pointDistance = geopoint.point.distanceSquared(p0);
-//            if (pointDistance < minDistance) {
-//                minDistance = pointDistance;
-//                closestPoint = geopoint;
-//            }
-//        }
 
         return closestPoint;
     }
