@@ -7,7 +7,7 @@ package primitives;
  */
 public abstract class Util {
 	// It is binary, equivalent to ~1/1,000,000,000,000 in decimal (12 digits)
-	private static final int ACCURACY = -40;
+	private static final int ACCURACY = -30;
 
 	/**
 	 * Empty private constructor to hide the public one
@@ -26,7 +26,6 @@ public abstract class Util {
 		// 4. "De-normalize" the exponent by subtracting 1023
 		return (int) ((Double.doubleToRawLongBits(num) >> 52) & 0x7FFL) - 1023;
 	}
-
 	/**
 	 * Checks whether the number is [almost] zero
 	 * 

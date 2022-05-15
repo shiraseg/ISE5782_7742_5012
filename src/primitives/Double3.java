@@ -133,4 +133,13 @@ public class Double3 {
 		return new Double3(d1 * rhs.d1, d2 * rhs.d2, d3 * rhs.d3);
 	}
 
+	public boolean biggerThan(double k)
+	{
+		return this.d1>k && this.d2>k && this.d3>k;
+	}
+
+	public boolean lowerThan(double k)
+	{
+		return this.d1<k && this.d2<k && this.d3<k;
+	}
 }
