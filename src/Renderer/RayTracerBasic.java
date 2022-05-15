@@ -30,9 +30,8 @@ public class RayTracerBasic extends RayTracerBase
     }
 
 
-    private Color calcColor(GeoPoint point, Ray ray) {
-//        return scene.getAmbienLight().getIntensity()
-//                .add(calcLocalEffects(point, ray));
+    private Color calcColor(GeoPoint point, Ray ray)
+    {
         return scene.getAmbienLight().getIntensity() //ka*Ia
                 .add(point.geometry.getEmission(), //+Ie
                         calcLocalEffects(point, ray)); //+calculated light contribution from all light sources
