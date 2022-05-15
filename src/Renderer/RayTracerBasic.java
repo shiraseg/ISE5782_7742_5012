@@ -26,16 +26,25 @@ public class RayTracerBasic extends RayTracerBase
             return scene.getBackground();
         }
         GeoPoint closestPoint = ray.findClosestGeoPoint(intersection);
-        return calcColor(closestPoint, ray);
+        return calcColor(closestPoint, ray)==null?scene.getBackground():calcColor(closestPoint,ray);
     }
 
 
-    private Color calcColor(GeoPoint point, Ray ray)
+    private Color calcColor(GeoPoint point, Ray ray, int level, double k)
     {
-        return scene.getAmbienLight().getIntensity() //ka*Ia
-                .add(point.geometry.getEmission(), //+Ie
-                        calcLocalEffects(point, ray)); //+calculated light contribution from all light sources
+//        return scene.getAmbienLight().getIntensity() //ka*Ia
+//                .add(point.geometry.getEmission(), //+Ie
+        Color color= calcLocalEffects(point, ray); //+calculated light contribution from all light sources
+        return level==1? color:color.add(calcGlobalEffects(point, ray,level,k));
 
+    }
+
+    private Color calcGlobalEffects(GeoPoint gp,Ray ray, int level, double k)
+    {
+        Color color=Color.BLACK;
+        Vector normal=gp.geometry.getNormal(gp.point);
+        Material material=gp.geometry.getMaterial();
+        double kkr=k*material.k
     }
 
 
