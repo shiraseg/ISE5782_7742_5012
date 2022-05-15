@@ -4,7 +4,21 @@ public class Material
 {
     public Double3 kD=Double3.ZERO;
     public Double3 kS=Double3.ZERO;
+    public Double3 kT=Double3.ZERO;//transparency - שקיפות
+    public Double3 kR=Double3.ZERO;//השתקפות -reflection
+
     int nShininess=0;
+
+    public Material setkT(Double3 kT) {
+        this.kT = kT;
+        return this;
+    }
+
+    public Material setkR(Double3 kR) {
+        this.kR = kR;
+        return this;
+
+    }
 
     public Material setkD(Double3 kD)
     {
