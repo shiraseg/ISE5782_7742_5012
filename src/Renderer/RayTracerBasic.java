@@ -15,8 +15,6 @@ public class RayTracerBasic extends RayTracerBase
 
     public RayTracerBasic(Scene scene) {
         super(scene);
-        if (scene == null)
-            return;
     }
 
     private static final double DELTA = 0.1;
@@ -65,8 +63,6 @@ public class RayTracerBasic extends RayTracerBase
                              iL.scale(calcSpecular(material, n, l, nl, v)));
 
                  }
-
-
             }
         }
         return color;
@@ -100,7 +96,7 @@ public class RayTracerBasic extends RayTracerBase
 
         //for each intersection
         for (GeoPoint intersection : intersections) {
-            //if there are points in the intersectios list that are closer to the point
+            //if there are points in the intersections list that are closer to the point
             //then light source, return false
             if (maxDistance > intersection.point.distance(gp.point)) {
                 return false;

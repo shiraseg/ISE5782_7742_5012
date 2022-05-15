@@ -11,6 +11,8 @@ import primitives.*;
 import Renderer.*;
 import scene.Scene;
 
+import javax.swing.*;
+
 /**
  * Testing basic shadows
  *
@@ -95,8 +97,8 @@ public class ShadowTests {
      * producing a shading
      */
     @Test
-    public void trianglesSphere() {
-   //    Scene.SceneBuilder.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), new Double3(0.15))).build();
+    public void trianglesSphere()
+    {
         Scene scene = new Scene.SceneBuilder("Test scene").setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), new Double3(0.15))).build();
 
         scene.geometries.add( //
@@ -115,6 +117,6 @@ public class ShadowTests {
         camera.setImageWriter(new ImageWriter("shadowTrianglesSphere", 600, 600)) //
                 .renderImage() //
                 .writeToImage();
-    }
 
+    }
 }
