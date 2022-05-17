@@ -105,31 +105,6 @@ public class RayTracerBasic extends RayTracerBase
         return material.kS.scale(Math.pow(Math.max(0, r.dotProduct(v.scale(-1d))), material.getnShininess()));
     }
 
-//    private boolean unshaded(GeoPoint gp, LightSource light, Vector l, Vector n, double nv)
-//    {
-//        Vector lightDirection = l.scale(-1);//from point to light source
-//        // Refactored ray head move
-//        Ray lightRay = new Ray(gp.point, lightDirection, n);
-//        double maxDistance =light.getDistance(gp.point);
-//        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
-//
-//        //if there are no intersections return true (there is no shadow)
-//        if (intersections == null)
-//            return true;
-//
-//        //for each intersection
-//        for (GeoPoint intersection : intersections)
-//        {
-//            //if there are points in the intersections list that are closer to the point
-//            //then light source, return false
-//            if (maxDistance > intersection.point.distance(gp.point)&&intersection.geometry.getMaterial().kT==Double3.ZERO)
-//            {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-
 
     private Color calcGlobalEffects(GeoPoint gp,Ray ray, int level, Double3 k)
     {
@@ -187,22 +162,11 @@ public class RayTracerBasic extends RayTracerBase
         Double3 ktr = new Double3(1.0);
         //for each intersection
         for (GeoPoint intersection : intersections) {
-            //if there are points in the intersections list that are closer to the point
-            //then light source, return false
-//            if (maxDistance > intersection.point.distance(gp.point))
-//            {
-//                if(intersection.geometry.getMaterial().kT==Double3.ZERO)
-//                    return Double3.ZERO;
             ktr = intersection.geometry.getMaterial().kT.product(ktr);
             if (ktr.lowerThan(MIN_CALC_COLOR_K))
                 return Double3.ZERO;
         }
         return ktr;
-//            }
-//        }
-//        return ktr;
-//    }
-
     }
 
 

@@ -26,6 +26,22 @@ public class Camera {
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
 
+    public Point getP0() {
+        return p0;
+    }
+
+    public Vector getvUp() {
+        return vUp;
+    }
+
+    public Vector getvTo() {
+        return vTo;
+    }
+
+    public Vector getvRight() {
+        return vRight;
+    }
+
     public void setP0(Point p0) {
         this.p0 = p0;
     }
