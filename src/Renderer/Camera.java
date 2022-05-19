@@ -192,4 +192,5 @@ public class Camera {
         this.rayTracer = rayTracer;
         return this;
     }
+
 }
