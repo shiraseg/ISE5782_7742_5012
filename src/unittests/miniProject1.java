@@ -37,11 +37,13 @@ public class miniProject1 {
         //SKY
         Plane plane2 = new Plane(new Point(0, 0, -300), new Vector(0, 0, 1));
         Plane plane=new Plane(new Point(0, -20, 0), new Vector(0, -40, 0));
-
         scene1.geometries.add(plane.setEmission(new Color(0,0,40)));
         //.setMaterial(new Material() .setKd(1.5).setKs(1.5).setnShininess(300).setKt(new Double3(0)).setKr(new Double3(0))));
         //SEA
        scene1.geometries.add(plane2.setEmission( new Color(5,0,54)).setMaterial(new Material().setKt(new Double3(0)) .setKr( new Double3(0))));
+        //SHARK
+        Triangle shark=new Triangle(new Point(-52, -32, -28), new Point(-32, -32, -28), new Point(-52, -12, -28));
+        scene1.geometries.add(shark.setEmission( new Color(76,76,76)).setMaterial(new Material().setKt(new Double3(1)) .setKr( new Double3(0))));
 
 
         //light additions
