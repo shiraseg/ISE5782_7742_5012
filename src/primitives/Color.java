@@ -8,7 +8,8 @@ package primitives;
  *
  * @author Dan Zilberstein
  */
-public class Color {
+public class Color
+{
     /**
      * The internal fields tx`o maintain RGB components as double numbers from 0 to
      * whatever...
@@ -23,7 +24,8 @@ public class Color {
     /**
      * Default constructor - to generate Black Color (privately)
      */
-    private Color() {
+    private Color()
+    {
         rgb = Double3.ZERO;
     }
 
@@ -35,7 +37,8 @@ public class Color {
      * @param g Green component
      * @param b Blue component
      */
-    public Color(double r, double g, double b) {
+    public Color(double r, double g, double b)
+    {
         if (r < 0 || g < 0 || b < 0)
             throw new IllegalArgumentException("Negative color component is illegal");
         rgb = new Double3(r, g, b);
@@ -48,7 +51,8 @@ public class Color {
      *
      * @param rgb triad of Red/Green/Blue components
      */
-    private Color(Double3 rgb) {
+    private Color(Double3 rgb)
+    {
         if (rgb.d1 < 0 || rgb.d2 < 0 || rgb.d3 < 0)
             throw new IllegalArgumentException("Negative color component is illegal");
         this.rgb = rgb;
@@ -59,7 +63,8 @@ public class Color {
      *
      * @param other java.awt.Color's source object
      */
-    public Color(java.awt.Color other) {
+    public Color(java.awt.Color other)
+    {
         rgb = new Double3(other.getRed(), other.getGreen(), other.getBlue());
     }
 
@@ -69,11 +74,14 @@ public class Color {
      *
      * @return java.awt.Color object based on this Color RGB components
      */
-    public java.awt.Color getColor() {
+    public java.awt.Color getColor()
+    {
         int ir = (int) rgb.d1;
         int ig = (int) rgb.d2;
         int ib = (int) rgb.d3;
-        return new java.awt.Color(ir > 255 ? 255 : ir, ig > 255 ? 255 : ig, ib > 255 ? 255 : ib);
+        return new java.awt.Color(ir > 255 ? 255 : ir,
+                ig > 255 ? 255 : ig,
+                ib > 255 ? 255 : ib);
     }
 
     /**
@@ -82,11 +90,14 @@ public class Color {
      * @param colors one or more other colors to add
      * @return new Color object which is a result of the operation
      */
-    public Color add(Color... colors) {
+    public Color add(Color... colors)
+    {
         double rr = rgb.d1;
         double rg = rgb.d2;
         double rb = rgb.d3;
-        for (Color c : colors) {
+
+        for (Color c : colors)
+        {
             rr += c.rgb.d1;
             rg += c.rgb.d2;
             rb += c.rgb.d3;
@@ -100,7 +111,8 @@ public class Color {
      * @param k scale factor per rgb
      * @return new Color object which is the result of the operation
      */
-    public Color scale(Double3 k) {
+    public Color scale(Double3 k)
+    {
         if (k.d1 < 0.0 || k.d2 < 0.0 || k.d3 < 0.0)
             throw new IllegalArgumentException("Can't scale a color by a negative number");
         return new Color(rgb.product(k));
@@ -112,7 +124,8 @@ public class Color {
      * @param k scale factor
      * @return new Color object which is the result of the operation
      */
-    public Color scale(double k) {
+    public Color scale(double k)
+    {
         if (k < 0.0)
             throw new IllegalArgumentException("Can't scale a color by a negative number");
         return new Color(rgb.scale(k));
@@ -124,7 +137,8 @@ public class Color {
      * @param k reduction factor
      * @return new Color object which is the result of the operation
      */
-    public Color reduce(double k) {
+    public Color reduce(double k)
+    {
         if (k < 1)
             throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
         return new Color(rgb.reduce(k));
@@ -136,7 +150,8 @@ public class Color {
      * @param k reduction factor
      * @return new Color object which is the result of the operation
      */
-    public Color reduce(Double3 k) {
+    public Color reduce(Double3 k)
+    {
         if (k.d1 < 1.0 || k.d2 < 1.0 || k.d3 < 1.0)
             throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
         return new Color(rgb.d1 / k.d1, rgb.d2 / k.d2, rgb.d3 / k.d3);

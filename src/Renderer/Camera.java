@@ -12,55 +12,51 @@ import static primitives.Util.isZero;
 /**
  * Camera producing rays through a view plane
  */
-public class Camera {
+public class Camera
+{
+    /**
+     * fields
+     */
 
-    private  Point p0;          // camera eye
-    private  Vector vUp;        // vector pointing upwards : Y axis
-    private  Vector vTo;        // vector pointing towards the scene
-    private  Vector vRight;     // vector pointing towards the right : X axis
+    // camera eye
+    private  Point p0;
 
-    private double distance;    // cameras distance from ViewPlane
-    private double width;       // ViewPlane width
-    private double height;      // ViewPlane height
+    // vector pointing upwards : Y axis
+    private  Vector vUp;
+
+    // vector pointing towards the scene
+    private  Vector vTo;
+
+    // vector pointing towards the right : X axis
+    private  Vector vRight;
+
+    // cameras distance from ViewPlane
+    private double distance;
+
+    // ViewPlane width
+    private double width;
+
+    // ViewPlane height
+    private double height;
 
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
 
-    public Point getP0() {
-        return p0;
-    }
+    /**
+     * methods
+     */
 
-    public Vector getvUp() {
-        return vUp;
-    }
-
-    public Vector getvTo() {
-        return vTo;
-    }
-
-    public Vector getvRight() {
-        return vRight;
-    }
-
-    public void setP0(Point p0) {
-        this.p0 = p0;
-    }
-
-    public void setvUp(Vector vUp) {
-        this.vUp = vUp;
-    }
-
-    public void setvTo(Vector vTo) {
-        this.vTo = vTo;
-    }
-
-    public void setvRight(Vector vRight) {
-        this.vRight = vRight;
-    }
-
+    /**
+     *
+     * @param p0
+     * @param vTo
+     * @param vUp
+     * a constructor
+     */
     public Camera(Point p0, Vector vTo, Vector vUp)
     {
-        if(!isZero(vUp.dotProduct(vTo))){
+        if(!isZero(vUp.dotProduct(vTo)))
+        {
             throw  new IllegalArgumentException("vTo and vUp should be orthogonal");
         }
 
@@ -74,14 +70,93 @@ public class Camera {
 
     }
 
-    // chaining methods
+    /**
+     *
+     * @return point
+     * getter to "p0"
+     */
+    public Point getP0()
+    {
+        return p0;
+    }
+
+    /**
+     *
+     * @return vector
+     * getter to "vUp"
+     */
+    public Vector getvUp()
+    {
+        return vUp;
+    }
+
+    /**
+     *
+     * @return vector
+     * getter to "vTo"
+     */
+    public Vector getvTo()
+    {
+        return vTo;
+    }
+
+    /**
+     *
+     * @return vector
+     * getter to "vRight"
+     */
+    public Vector getvRight()
+    {
+        return vRight;
+    }
+
+    /**
+     *
+     * @param p0
+     * setter for "p0"
+     */
+    public void setP0(Point p0)
+    {
+        this.p0 = p0;
+    }
+
+    /**
+     *
+     * @param vUp
+     * setter for "vUp"
+     */
+    public void setvUp(Vector vUp)
+    {
+        this.vUp = vUp;
+    }
+
+    /**
+     *
+     * @param vTo
+     * setter for "vTo"
+     */
+    public void setvTo(Vector vTo)
+    {
+        this.vTo = vTo;
+    }
+
+    /**
+     *
+     * @param vRight
+     * setter for "vRight"
+     */
+    public void setvRight(Vector vRight)
+    {
+        this.vRight = vRight;
+    }
 
     /**
      * set distance between the camera and it's view plane
      * @param distance the  distance for the view plane
      * @return instance of Camera for chaining
      */
-    public Camera setVPDistance(double distance) {
+    public Camera setVPDistance(double distance)
+    {
         this.distance = distance;
         return this;
     }
@@ -92,9 +167,34 @@ public class Camera {
      * @param height    "physical" height
      * @return instance of Camera for chaining
      */
-    public Camera setVPSize(double width, double height) {
+    public Camera setVPSize(double width, double height)
+    {
         this.width = width;
         this.height = height;
+        return this;
+    }
+
+    /**
+     *
+     * @param imageWriter
+     * @return camera
+     * setter of "imageWriter" in builder pattern
+     */
+    public Camera setImageWriter(ImageWriter imageWriter)
+    {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+
+    /**
+     *
+     * @param rayTracer
+     * @return camera
+     * setter of "rayTracer"
+     */
+    public Camera setRayTracer(RayTracerBase rayTracer)
+    {
+        this.rayTracer = rayTracer;
         return this;
     }
 
@@ -107,7 +207,8 @@ public class Camera {
      * @param i x value of pixel wanted
      * @return ray form the camera to Pixel[i,j]
      */
-    public Ray constructRay(int Nx, int Ny, int j, int i) {
+    public Ray constructRay(int Nx, int Ny, int j, int i)
+    {
         //Image center
         Point Pc = p0.add(vTo.scale(distance));
 
@@ -123,22 +224,34 @@ public class Camera {
         double yI =  -(i - (Ny -1)/2d)* Ry;
         double xJ =  (j - (Nx -1)/2d)* Rx;
 
-        if (! isZero(xJ) ){
+        if (! isZero(xJ) )
+        {
             Pij = Pij.add(vRight.scale(xJ));
         }
-        if (! isZero(yI)) {
+
+        if (! isZero(yI))
+        {
             Pij = Pij.add(vUp.scale(yI));
         }
 
         return new Ray(p0, Pij.subtract(p0));
     }
 
-    public void writeToImage() {
+    /**
+     * a methode that creates an image from the code
+     */
+    public void writeToImage()
+    {
         if(imageWriter == null)
             throw new MissingResourceException("missing image writer", "Camera", "in writeTorImage");
         imageWriter.writeToImage();
     }
 
+    /**
+     *
+     * @return  camera
+     * a methode that rendering the image
+     */
     public Camera renderImage()
     {
         try
@@ -166,31 +279,31 @@ public class Camera {
                 }
             }
         }
+
         catch (MissingResourceException e)
         {
             throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
         }
+
         return this;
     }
 
-    public void printGrid(int interval, Color color) {
+    /**
+     *
+     * @param interval
+     * @param color
+     * a methode that prints a grid
+     */
+    public void printGrid(int interval, Color color)
+    {
         if(imageWriter == null)
             throw new MissingResourceException("missing image writer", "Camera", "in print Grid");
+
         for (int j = 0; j< imageWriter.getNx(); j++)
             for (int i = 0; i< imageWriter.getNy(); i++)
                 if(i%interval==0 || j%interval==0)
                     imageWriter.writePixel(j, i, color);
     }
 
-
-    public Camera setImageWriter(ImageWriter imageWriter) {
-        this.imageWriter = imageWriter;
-        return this;
-    }
-
-    public Camera setRayTracer(RayTracerBase rayTracer) {
-        this.rayTracer = rayTracer;
-        return this;
-    }
 
 }

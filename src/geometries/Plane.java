@@ -12,29 +12,47 @@ import static primitives.Util.*;
 
 public class Plane extends Geometry
 {
+
+    /**
+     * fields
+     */
+
     final private Point _q0;
     final private Vector _normal;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Plane plane = (Plane) o;
-        return _q0.equals(plane._q0) && _normal.equals(plane._normal);
-    }
+    /**
+     * methods
+     */
 
-    public Plane(Point q0, Vector normal) {
+    /**
+     *
+     * @param q0
+     * @param normal
+     * a constructor that gets the fields.
+     */
+    public Plane(Point q0, Vector normal)
+    {
         _q0 = q0;
         _normal = normal;
     }
 
-    public Plane(Point x, Point y, Point z) {
+    /**
+     *
+     * @param x
+     * @param y
+     * @param z
+     * a constructor that gets 3 points and makes with them a plane
+     */
+    public Plane(Point x, Point y, Point z)
+    {
         this._q0 = x;
         if(x.equals(y) || x.equals(z) || y.equals(z))
             throw  new IllegalArgumentException("ERROR: plane must be with three different points");
+
         Vector xt = x.subtract(new Point(0,0,0)).normalize();
         Vector yt = y.subtract(new Point(0,0,0)).normalize();
         Vector zt = z.subtract(new Point(0,0,0)).normalize();
+
         if(xt.dotProduct(yt)==1 || xt.dotProduct(zt)==1 || yt.dotProduct(zt)==1)
             throw new  IllegalArgumentException("ERROR: cant points on the same ray");
 
@@ -44,13 +62,21 @@ public class Plane extends Geometry
         this._normal = N.normalize();
     }
 
-    public Point getQ0() {
+
+    /**
+     *
+     * @return point
+     * getter for "_q0"
+     */
+    public Point getQ0()
+    {
         return _q0;
     }
 
     /**
-     *  getter for _normal Vector
-     * @return the infamous normal
+     *
+     * @return vector
+     * getter for "_normal"
      */
     public Vector getNormal()
     {
@@ -67,7 +93,26 @@ public class Plane extends Geometry
         return getNormal();
     }
 
+    /**
+     *
+     * @param o
+     * @return true/ false
+     * this methode checks if an object is equals to the current plane
+     */
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Plane plane = (Plane) o;
+        return _q0.equals(plane._q0) && _normal.equals(plane._normal);
+    }
 
+    /**
+     * implementation of {@link Intersectable#findGeoIntersectionsHelper(Ray)}
+     * @param ray
+     * @return list of geo- points
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray)
     {

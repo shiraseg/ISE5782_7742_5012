@@ -17,7 +17,8 @@ import javax.imageio.*;
  *
  * @author Dan
  */
-public class ImageWriter {
+public class ImageWriter
+{
     private int nX;
     private int nY;
 

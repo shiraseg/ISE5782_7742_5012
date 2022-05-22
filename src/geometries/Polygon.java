@@ -84,17 +84,30 @@ public class Polygon extends Geometry {
 		size = vertices.length;
 	}
 
+
+	/**
+	 *  implementation of {@link Geometry#getNormal(Point)}
+	 * @param point external Point
+	 * @return normal to plane
+	 */
 	@Override
 	public Vector getNormal(Point point) {
 		return plane.getNormal();
 	}
 
+
+	/**
+	 * implementation of {@link Intersectable#findGeoIntersectionsHelper(Ray)}
+	 * @param ray
+	 * @return list of geo- points
+	 */
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray)
 	{
 		List<GeoPoint> result = plane.findGeoIntersections(ray);
 
-		if (result == null) {
+		if (result == null)
+		{
 			return null;
 		}
 
@@ -109,23 +122,27 @@ public class Polygon extends Geometry {
 
 		double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
 
-		if (isZero(sign)) {
+		if (isZero(sign))
+		{
 			return null;
 		}
 
 		boolean positive = sign > 0;
 
 		//iterate through all vertices of the polygon
-		for (int i = vertices.size() - 1; i > 0; --i) {
+		for (int i = vertices.size() - 1; i > 0; --i)
+		{
 			v1 = v2;
 			v2 = vertices.get(i).subtract(P0);
 
 			sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-			if (isZero(sign)) {
+			if (isZero(sign))
+			{
 				return null;
 			}
 
-			if (positive != (sign > 0)) {
+			if (positive != (sign > 0))
+			{
 				return null;
 			}
 		}

@@ -9,11 +9,18 @@ import java.util.List;
 
 public class Geometries extends Intersectable
 {
+    /**
+     * field
+     */
 
     /**
      * a list of points that intersect with the ray.
      */
     protected List<Intersectable> intersectablesList;
+
+    /**
+     * methods
+     */
 
     /**
      * a default constructor.
