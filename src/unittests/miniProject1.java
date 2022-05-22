@@ -32,7 +32,7 @@ public class miniProject1 {
         //creating the sunset
         //SUN
         scene1.geometries.add(
-                new Sphere(new Point(0,-4,-200),40).setEmission(new Color(0,0,47)).setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(300).setKt(new Double3(0.5)).setKr(new Double3(0))));
+                new Sphere(new Point(0,-4,-200),40).setEmission(new Color(0,0,47)).setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(100).setKt(new Double3(9)).setKr(new Double3(0))));
 
         //SHARKS
         Triangle shark1=new Triangle(new Point(-52, -32, -50), new Point(-32, -32, -50), new Point(-52, -12, -50));
@@ -45,9 +45,19 @@ public class miniProject1 {
         scene1.geometries.add(shark3.setEmission( new Color(76,76,76)).setMaterial(new Material().setKt(new Double3(0)) .setKr( new Double3(0))));
 
         //SEA
-        Plane plane=new Plane(new Point(0, -20, 0), new Vector(0, -40, 0));
-        scene1.geometries.add(plane.setEmission(new Color(0,0,40))
-        .setMaterial(new Material().setKd(0.0).setKs(0.0).setnShininess(0).setKt(new Double3(0)).setKr(new Double3(0))));
+//        Plane plane=new Plane(new Point(0, -20, 0), new Vector(0, -40, 0));
+//        scene1.geometries.add(plane.setEmission(new Color(0,0,40))
+//        .setMaterial(new Material().setKd(0.0).setKs(0.0).setnShininess(0).setKt(new Double3(0)).setKr(new Double3(0))));
+        Geometry sea=new Plane(new Point(0,-15,2),new Vector(0,0,2))
+                .setEmission(new Color(0,0,40))
+                .setMaterial(new Material()
+                        .setKd(0.0)
+                        .setKs(0.5)
+                        .setnShininess(300)
+                        .setKt(new Double3(0))
+                        .setKr(new Double3(0.2)));
+        ;
+        scene1.geometries.add(sea);
 
         //SKY
 //        Plane plane2 = new Plane(new Point(0, 0, -300), new Vector(0, 0, 1));
@@ -56,10 +66,13 @@ public class miniProject1 {
                     .setEmission( new Color(5,0,54))
                     .setMaterial(new Material()
                             .setKt(new Double3(0))
-                            .setKr( new Double3(0)));
+                            .setKr( new Double3(7)));
             scene1.geometries.add(sky);
 
         //light additions
+        scene1.getLights().add( //
+                new SpotLight(new Color(800, 400, 400), new Point(0, 30, 50), new Vector(0, -3, -2)) //
+                        .setkL(4E-4).setkQ(2E-5));
         scene1.getLights().add(new DirectionalLight(new Color(300,200,0), new Vector(-0.3,-2,0)));
         scene1.getLights().add(new DirectionalLight(new Color(800,200,0), new Vector(0,-2,-1)));
         scene1.getLights().add(new SpotLight(new Color(800, 200, 0), new Point(0, 40, 100), new Vector(0, 1, 4))
@@ -70,6 +83,7 @@ public class miniProject1 {
         scene1.getLights().add(new DirectionalLight(new Color(800,200,0), new Vector(0,-2,-1)));
         scene1.getLights().add(new SpotLight(new Color(800, 200, 0), new Point(0, 40, 100), new Vector(0, 1, 4))
               .setkL(0.0004).setkQ(0.0000006));
+        scene1.getLights().add(new PointLight(new Color(green),new Point(0,4,-250)));
 
         //creating the picture
         ImageWriter imageWriter = new ImageWriter("trytopro", 500, 500);
