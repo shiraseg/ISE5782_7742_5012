@@ -4,8 +4,12 @@ import primitives.*;
 
 import java.util.List;
 
+/**
+ * an abstract class
+ */
 public abstract class Geometry extends Intersectable
 {
+
 
     abstract public Vector getNormal(Point p);
 

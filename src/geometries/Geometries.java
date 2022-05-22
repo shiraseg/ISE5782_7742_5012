@@ -10,12 +10,24 @@ import java.util.List;
 public class Geometries extends Intersectable
 {
 
+    /**
+     * a list of points that intersect with the ray.
+     */
     protected List<Intersectable> intersectablesList;
 
-    public Geometries() {
+    /**
+     * a default constructor.
+     */
+    public Geometries()
+    {
         intersectablesList = new LinkedList<>();
     }
 
+    /**
+     *
+     * @param intersectables
+     * a constructor that receives intersectables
+     */
     public Geometries(Intersectable... intersectables)
     {
         intersectablesList = new LinkedList<>();
@@ -23,10 +35,23 @@ public class Geometries extends Intersectable
 
     }
 
-    public void add(Intersectable...intersectables){
+    /**
+     *
+     * @param intersectables
+     * methode that adds intersectables to the list.
+     */
+    public void add(Intersectable...intersectables)
+    {
         Collections.addAll(intersectablesList,intersectables);
     }
 
+
+    /**
+     *
+     * @param ray
+     * @return
+     * methode that helps to find points and geometries that intersect with the ray.
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray)
     {
