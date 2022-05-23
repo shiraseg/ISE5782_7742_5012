@@ -1,6 +1,9 @@
 package unittests;
 
+<<<<<<< HEAD
 import Lighting.PointLight;
+=======
+>>>>>>> origin/master
 import Lighting.SpotLight;
 import Renderer.Camera;
 import Renderer.ImageWriter;
