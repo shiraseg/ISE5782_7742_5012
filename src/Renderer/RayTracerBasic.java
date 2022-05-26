@@ -86,6 +86,37 @@ public class RayTracerBasic extends RayTracerBase
         return calcColor(closestPoint, ray)==null?scene.getBackground():calcColor(closestPoint,ray);
     }
 
+
+    public Color traceRay(List<Ray> rays)
+    {
+        Color finalColor=null;
+        Color colorTmp=new Color(0,0,0);
+        for(var ray:rays)
+        {
+            List<GeoPoint> intersection = scene.geometries.findGeoIntersections(ray);
+            if (intersection == null)
+            {
+                return scene.getBackground();
+            }
+            GeoPoint closestPoint = ray.findClosestGeoPoint(intersection);
+
+             colorTmp=calcColor(closestPoint, ray) == null ? scene.getBackground() : calcColor(closestPoint, ray);
+             if(finalColor==null)
+             {
+                 finalColor=new Color(0,0,0);
+                 for (int i = 0; i < 9; i++)
+                     finalColor.add(colorTmp);
+             }
+
+            finalColor.add(colorTmp);
+
+        }
+        int size=rays.size();
+        return new Color(finalColor.getColor().getRed()/size,
+                finalColor.getColor().getGreen()/size,
+                finalColor.getColor().getBlue()/size) ;
+    }
+
     /**
      *
      * @param closestPoint
