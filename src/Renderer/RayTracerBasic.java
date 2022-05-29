@@ -90,6 +90,7 @@ public class RayTracerBasic extends RayTracerBase
     public Color traceRay(List<Ray> rays)
     {
         Color finalColor=null;
+        Color firstColor=null;
         Color colorTmp=new Color(0,0,0);
         for(var ray:rays)
         {
@@ -103,18 +104,20 @@ public class RayTracerBasic extends RayTracerBase
              colorTmp=calcColor(closestPoint, ray) == null ? scene.getBackground() : calcColor(closestPoint, ray);
              if(finalColor==null)
              {
+                 firstColor=colorTmp;
                  finalColor=new Color(0,0,0);
-                 for (int i = 0; i < 9; i++)
-                     finalColor.add(colorTmp);
+//                 for (int i = 0; i < 3; i++)
+                     finalColor=finalColor.add(colorTmp);
              }
 
-            finalColor.add(colorTmp);
+             if(!colorTmp.equals(firstColor))
+                finalColor=finalColor.add(colorTmp);
 
         }
+        if(finalColor.equals(firstColor))
+            return firstColor;
         int size=rays.size();
-        return new Color(finalColor.getColor().getRed()/size,
-                finalColor.getColor().getGreen()/size,
-                finalColor.getColor().getBlue()/size) ;
+        return finalColor.reduce(size);
     }
 
     /**

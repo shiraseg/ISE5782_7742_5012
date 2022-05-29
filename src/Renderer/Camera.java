@@ -278,6 +278,8 @@ public class Camera
 
                     List<Ray> ray = constructRays(nX, nY, j, i);
                     Color pixelColor = rayTracer.traceRay(ray);
+
+
                     imageWriter.writePixel(j, i, pixelColor);
                 }
             }
@@ -316,7 +318,7 @@ public class Camera
      * @param j
      * @param i
      * @return
-     * improving the corners of shapes - mini project 1
+     * improving the jagged edges - mini project 1
      */
     public List<Ray> constructRays(int Nx, int Ny, int j, int i)
     {
@@ -350,11 +352,12 @@ public class Camera
         /**
          * creating Ry*Rx rays for each pixel.
          */
-        for (int t = i; t < Ry; t++)
+        Point newPoint=new Point(Pc.getX()-Rx/2,Pc.getY()+Rx/2,Pc.getZ());
+        for (double t = newPoint.getY(); t >newPoint.getY()-Ry; t-=0.01)
         {
-            for (int k = j; k < Rx; k++)
+            for (double k = newPoint.getX(); k < newPoint.getX()+Rx; k+=0.01)
             {
-               rays.add(new Ray(p0,new Point(t,k,Pc.getZ()).subtract(p0)));
+               rays.add(new Ray(p0,new Point(k,t,Pc.getZ()).subtract(p0)));
             }
         }
 
