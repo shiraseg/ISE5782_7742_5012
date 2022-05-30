@@ -350,6 +350,8 @@ public class Camera
         /**
          * creating Ry*Rx rays for each pixel.
          */
+//        double dx=Rx/4;
+//        double dy=Ry/4;
         for (int t = i; t < Ry; t++)
         {
             for (int k = j; k < Rx; k++)
