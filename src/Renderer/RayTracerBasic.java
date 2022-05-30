@@ -106,7 +106,7 @@ public class RayTracerBasic extends RayTracerBase
              {
                  firstColor=colorTmp;
                  finalColor=new Color(0,0,0);
-//                 for (int i = 0; i < 3; i++)
+                 for (int i = 0; i < 10; i++)
                      finalColor=finalColor.add(colorTmp);
              }
 
@@ -116,7 +116,7 @@ public class RayTracerBasic extends RayTracerBase
         }
         if(finalColor.equals(firstColor))
             return firstColor;
-        int size=rays.size();
+        int size=rays.size()+10;
         return finalColor.reduce(size);
     }
 
