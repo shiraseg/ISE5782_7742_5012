@@ -136,7 +136,7 @@ public class firstImage {
 
 
         //creating the picture
-        ImageWriter imageWriter = new ImageWriter("sunRise", 500, 500);
+        ImageWriter imageWriter = new ImageWriter("sunRise", 2000, 2000);
         camera1.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene1)) //
                 .renderImage(); //
