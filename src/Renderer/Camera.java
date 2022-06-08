@@ -273,11 +273,11 @@ public class Camera
                 for (int j = 0; j < nX; j++)
                 {
                     //for presentation:
-//                    Ray ray = constructRay(nX, nY, j, i);
-//                    Color pixelColor = rayTracer.traceRay(ray);
-
-                    List<Ray> ray = constructRays(nX, nY, j, i);
+                    Ray ray = constructRay(nX, nY, j, i);
                     Color pixelColor = rayTracer.traceRay(ray);
+
+//                    List<Ray> ray = constructRays(nX, nY, j, i);
+//                    Color pixelColor = rayTracer.traceRay(ray);
 
 
                     imageWriter.writePixel(j, i, pixelColor);
