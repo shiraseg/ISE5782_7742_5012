@@ -276,8 +276,8 @@ public class Camera
                     Ray ray = constructRay(nX, nY, j, i);
                     Color pixelColor = rayTracer.traceRay(ray);
 
-//                    List<Ray> ray = constructRays(nX, nY, j, i);
-//                    Color pixelColor = rayTracer.traceRay(ray);
+                    // List<Ray> ray = constructRays(nX, nY, j, i);
+                    // Color pixelColor = rayTracer.traceRay(ray);
 
 
                     imageWriter.writePixel(j, i, pixelColor);
@@ -372,7 +372,7 @@ public class Camera
 
     Camera setsBeamRadius(double r)
     {
-        rayTracer.setBeamRadius(r);
+        rayTracer.setsBeamRadius(r);
         return this;
     }
 

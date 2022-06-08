@@ -31,6 +31,8 @@ public class firstImage {
                 new Vector(0, 1, 0))
                 .setVPSize(150, 150)
                 .setVPDistance(1000);
+                //.setRayTracer(new RayTracerBasic(scene1))
+               // .setSoftShadows(true);
 
 
         //creating the elements

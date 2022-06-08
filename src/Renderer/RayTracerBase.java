@@ -29,12 +29,14 @@ public abstract class RayTracerBase
     protected boolean softShadows =false;
     protected double beamRadius =20d;//אלומת אור
 
-    public void setSoftShadows(boolean softShadows) {
+    public RayTracerBase setSoftShadows(boolean softShadows) {
         this.softShadows = softShadows;
+        return this;
     }
 
-    public void setBeamRadius(double beamRadius) {
+    public RayTracerBase setsBeamRadius(double beamRadius) {
         this.beamRadius = beamRadius;
+        return this;
     }
 
     public boolean isSoftShadows() {
