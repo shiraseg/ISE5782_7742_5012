@@ -25,6 +25,25 @@ public abstract class RayTracerBase
      * @param scene
      * constructor.
      */
+
+    protected boolean softShadows =false;
+    protected double beamRadius =20d;//אלומת אור
+
+    public void setSoftShadows(boolean softShadows) {
+        this.softShadows = softShadows;
+    }
+
+    public void setBeamRadius(double beamRadius) {
+        this.beamRadius = beamRadius;
+    }
+
+    public boolean isSoftShadows() {
+        return softShadows;
+    }
+
+    public double getBeamRadius() {
+        return beamRadius;
+    }
     public RayTracerBase(Scene scene)
     {
         this.scene = scene;

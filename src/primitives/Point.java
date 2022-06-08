@@ -34,6 +34,10 @@ public class Point
         xyz=new Double3(x,y,z);
     }
 
+    public Point(Point p)
+    {
+        this.xyz=p.xyz;
+    }
     /**
      *
      * @param xyz

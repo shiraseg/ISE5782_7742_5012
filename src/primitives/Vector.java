@@ -26,7 +26,7 @@ public class Vector extends Point
      * @param xyz
      *  a constructor that gets double3 and puts it in the field xyz
      */
-    protected Vector(Double3 xyz)
+    public Vector(Double3 xyz)
     {
         super(xyz);
         if(xyz.equals(Double3.ZERO)) throw new IllegalArgumentException("Cant vector zero");
