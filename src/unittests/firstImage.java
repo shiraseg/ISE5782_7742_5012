@@ -5,10 +5,7 @@ import Lighting.SpotLight;
 import Renderer.Camera;
 import Renderer.ImageWriter;
 import Renderer.RayTracerBasic;
-import geometries.Geometry;
-import geometries.Plane;
-import geometries.Sphere;
-import geometries.Triangle;
+import geometries.*;
 import org.junit.jupiter.api.Test;
 import primitives.*;
 import scene.Scene;
@@ -69,6 +66,29 @@ public class firstImage {
                         .setKr(new Double3(0.2)));
         //adding the sea into the picture
         scene1.geometries.add(sea);
+
+        //BOAT
+        Geometry boat= new Polygon(new Point(-35,-9,20),
+                new Point(-41,-17,20),
+                new Point(-59,-17,20),
+                new Point(-65,-9,20))
+                .setEmission(new Color(128,104,115));
+
+        //SAIL
+        //first sail
+        Geometry sail1= new Triangle(new Point(-50,10,20),
+                new Point(-41,-10,20),
+                new Point(-50,-10,20))
+                .setEmission(new Color(java.awt.Color.lightGray));
+
+        //second sail
+        Geometry sail2= new Triangle(new Point(-50,10,20),
+                new Point(-50,-10,20),
+                new Point(-59,-10,20))
+                .setEmission(new Color(java.awt.Color.gray));
+
+        //adding the boat into the picture
+        scene1.geometries.add(boat,sail1,sail2);
 
         //BIRDS
         //FIRST BIRD
