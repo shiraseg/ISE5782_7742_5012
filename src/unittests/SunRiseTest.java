@@ -28,9 +28,9 @@ public class SunRiseTest {
                 new Vector(0, 1, 0))
                 .setVPSize(150, 150)
                 .setVPDistance(1000)
-                .setRayTracer(new RayTracerBasic(scene1))
-                .setsAntiA(false)
-                .setsSoftShadows(true);
+                .setRayTracer(new RayTracerBasic(scene1));
+//                .setsAntiA(false)
+//                .setsSoftShadows(true);
 
 
 
