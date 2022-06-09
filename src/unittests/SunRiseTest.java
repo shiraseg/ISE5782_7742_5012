@@ -16,7 +16,7 @@ import scene.Scene;
  * including sea, birds and the sun
  * using plane, sphere and triangles
  */
-public class firstImage {
+public class SunRiseTest {
     @Test
     public void test()
     {
@@ -27,9 +27,11 @@ public class firstImage {
                 new Vector(0, 0, -1),
                 new Vector(0, 1, 0))
                 .setVPSize(150, 150)
-                .setVPDistance(1000);
-                //.setRayTracer(new RayTracerBasic(scene1))
-               // .setSoftShadows(true);
+                .setVPDistance(1000)
+                .setRayTracer(new RayTracerBasic(scene1))
+                .setsAntiA(false)
+                .setsSoftShadows(true);
+
 
 
         //creating the elements
@@ -149,11 +151,12 @@ public class firstImage {
                 new SpotLight(new Color(0, 0, 800),
                         new Point(150, -30, 50),
                         new Vector(0, 3, -2))
-                        .setkL(4E-4).setkQ(2E-5));
+                        .setkL(1E-5).setkQ(1.5E-7));
+
         //SEA COLOR
         scene1.getLights().add(
                 new SpotLight(new Color(java.awt.Color.cyan),
-                        new Point(0,-10,20),
+                        new Point(2,5,20),
                         new Vector(0,3,-2)));
 
 

@@ -45,10 +45,6 @@ public class Camera
     private RayTracerBase rayTracer;
 
     /**
-     * methods
-     */
-
-    /**
      *
      * @param p0
      * @param vTo
@@ -273,12 +269,21 @@ public class Camera
                 for (int j = 0; j < nX; j++)
                 {
                     //for presentation:
+
                     Ray ray = constructRay(nX, nY, j, i);
-                    Color pixelColor = rayTracer.traceRay(ray);
+                    Color pixelColor = rayTracer.traceRay(ray,100);
 
-                    // List<Ray> ray = constructRays(nX, nY, j, i);
-                    // Color pixelColor = rayTracer.traceRay(ray);
-
+                    //List<Ray> ray = constructRays(nX, nY, j, i);
+                    //Color pixelColor = rayTracer.traceRay(ray);
+//                    Color pixelColor;
+//                    if(rayTracer.isAntiA()){
+//                        List<Ray> rays = constructRays(nX, nY, j, i);
+//                         pixelColor = rayTracer.traceRay(rays);
+//                    }
+//                    else{
+//                        Ray ray = constructRay(nX, nY, j, i);
+//                         pixelColor = rayTracer.traceRay(ray,200);
+//                    }
 
                     imageWriter.writePixel(j, i, pixelColor);
                 }
@@ -345,7 +350,7 @@ public class Camera
         List<Ray> rays=new ArrayList<>();
 
         /**
-         * puts the pixel center in the first place on the list.
+         * puts the pixel center in the first place on the list
          */
         rays.add(new Ray(p0,Pc.subtract(p0)));
 
@@ -364,15 +369,21 @@ public class Camera
         return rays;
     }
 
-    Camera setShadows(boolean isSoft)
+    public Camera setsSoftShadows(boolean isSoft)
     {
         rayTracer.setSoftShadows(isSoft);
         return this;
     }
 
-    Camera setsBeamRadius(double r)
+    public Camera setsBeamRadius(double r)
     {
-        rayTracer.setsBeamRadius(r);
+        rayTracer.setBeamRadius(r);
+        return this;
+    }
+
+    public Camera setsAntiA(boolean a)
+    {
+        rayTracer.setAntiA(a);
         return this;
     }
 
