@@ -204,7 +204,7 @@ public class RayTracerBasic extends RayTracerBase
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0)        //checking if sign(nl) == sing(nv)
             {
-                if(true) {//we want soft shadows
+                if(softShadows) {//we want soft shadows
                     ktr = transparencyBeam(lightSource, n, gp, beam);
                 }
                 else {

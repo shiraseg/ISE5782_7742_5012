@@ -33,7 +33,6 @@ public class SunRiseTest {
                 .setsSoftShadows(true);
 
 
-
         //creating the elements
 
         //SKY (we chose to create it from sphere  to give the feeling of a sky dome)
