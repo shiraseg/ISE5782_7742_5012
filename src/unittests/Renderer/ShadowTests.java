@@ -25,8 +25,8 @@ public class ShadowTests {
     private Scene scene = new Scene.SceneBuilder("Test scene").build();
     private Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
             .setVPSize(200, 200).setVPDistance(1000) //
-            .setRayTracer(new RayTracerBasic(scene))
-            .setsSoftShadows(true);
+            .setRayTracer(new RayTracerBasic(scene));
+//            .setsSoftShadows(true);
 
     /**
      * Helper function for the tests in this module

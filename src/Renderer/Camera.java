@@ -45,6 +45,10 @@ public class Camera
     private RayTracerBase rayTracer;
 
     /**
+     * methods
+     */
+
+    /**
      *
      * @param p0
      * @param vTo
@@ -268,22 +272,13 @@ public class Camera
             {
                 for (int j = 0; j < nX; j++)
                 {
-                    //for presentation:
+//                    //for presentation:
+//                    Ray ray = constructRay(nX, nY, j, i);
+//                    Color pixelColor = rayTracer.traceRay(ray);
+//
+                    List<Ray> ray = constructRays(nX, nY, j, i);
+                    Color pixelColor = rayTracer.traceRay(ray);
 
-                    Ray ray = constructRay(nX, nY, j, i);
-                    Color pixelColor = rayTracer.traceRay(ray,100);
-
-                    //List<Ray> ray = constructRays(nX, nY, j, i);
-                    //Color pixelColor = rayTracer.traceRay(ray);
-//                    Color pixelColor;
-//                    if(rayTracer.isAntiA()){
-//                        List<Ray> rays = constructRays(nX, nY, j, i);
-//                         pixelColor = rayTracer.traceRay(rays);
-//                    }
-//                    else{
-//                        Ray ray = constructRay(nX, nY, j, i);
-//                         pixelColor = rayTracer.traceRay(ray,200);
-//                    }
 
                     imageWriter.writePixel(j, i, pixelColor);
                 }
@@ -350,7 +345,7 @@ public class Camera
         List<Ray> rays=new ArrayList<>();
 
         /**
-         * puts the pixel center in the first place on the list
+         * puts the pixel center in the first place on the list.
          */
         rays.add(new Ray(p0,Pc.subtract(p0)));
 
@@ -358,9 +353,9 @@ public class Camera
          * creating Ry*Rx rays for each pixel.
          */
         Point newPoint=new Point(Pc.getX()-Rx/2,Pc.getY()+Rx/2,Pc.getZ());
-        for (double t = newPoint.getY(); t >newPoint.getY()-Ry; t-=0.01)
+        for (double t = newPoint.getY(); t >newPoint.getY()-Ry; t-=0.03)
         {
-            for (double k = newPoint.getX(); k < newPoint.getX()+Rx; k+=0.01)
+            for (double k = newPoint.getX(); k < newPoint.getX()+Rx; k+=0.03)
             {
                rays.add(new Ray(p0,new Point(k,t,Pc.getZ()).subtract(p0)));
             }
@@ -368,23 +363,4 @@ public class Camera
 
         return rays;
     }
-
-    public Camera setsSoftShadows(boolean isSoft)
-    {
-        rayTracer.setSoftShadows(isSoft);
-        return this;
-    }
-
-    public Camera setsBeamRadius(double r)
-    {
-        rayTracer.setBeamRadius(r);
-        return this;
-    }
-
-    public Camera setsAntiA(boolean a)
-    {
-        rayTracer.setAntiA(a);
-        return this;
-    }
-
 }
