@@ -10,6 +10,10 @@ import java.util.List;
 
 import static primitives.Util.alignZero;
 
+/**
+ * derivative class from RayTracer traces ray path in the scene noting intersections
+ * with geometries in the scene
+ */
 public class RayTracerBasic extends RayTracerBase
 {
     /**
@@ -18,6 +22,7 @@ public class RayTracerBasic extends RayTracerBase
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
     private static final Double3 INITIAL_K =new Double3(1);
+
 
     /**
      * methods
@@ -32,6 +37,7 @@ public class RayTracerBasic extends RayTracerBase
     {
         super(scene);
     }
+
 
     /**
      *
@@ -66,16 +72,33 @@ public class RayTracerBasic extends RayTracerBase
     }
 
 
+//    /**
+//     * implementation of {@link RayTracerBase#traceRay(Ray)}
+//     * @param ray
+//     * @return color
+//     * a methode that decide what color to paint the pixel-
+//     * if there are no intersection-> in the background color
+//     * if there are intersection-> in the color of the closest geometry.
+//     */
+//    @Override
+//    public Color traceRay(Ray ray) {
+//        List<GeoPoint> myPoints = scene.geometries.findGeoIntersections(ray);
+//        if (myPoints != null) {
+//            GeoPoint myPoint = ray.findClosestGeoPoint(myPoints);
+//            return calcColor(myPoint, ray);
+//        }
+//        return scene.getBackground();
+//    }
+
     /**
-     * implementation of {@link RayTracerBase#traceRay(Ray)}
+     * implementation of {@link RayTracerBase#traceRay(Ray,int)}
      * @param ray
      * @return color
      * a methode that decide what color to paint the pixel-
      * if there are no intersection-> in the background color
      * if there are intersection-> in the color of the closest geometry.
      */
-    @Override
-    public Color traceRay(Ray ray)
+    public Color traceRay(Ray ray,int beam)
     {
         List<GeoPoint> intersection = scene.geometries.findGeoIntersections(ray);
         if (intersection == null)
@@ -83,10 +106,14 @@ public class RayTracerBasic extends RayTracerBase
             return scene.getBackground();
         }
         GeoPoint closestPoint = ray.findClosestGeoPoint(intersection);
-        return calcColor(closestPoint, ray)==null?scene.getBackground():calcColor(closestPoint,ray);
+        return calcColor(closestPoint, ray, beam)==null?scene.getBackground():calcColor(closestPoint,ray, beam);
     }
 
-
+    /**
+     *
+     * @param rays
+     * @return
+     */
     public Color traceRay(List<Ray> rays)
     {
         Color finalColor=null;
@@ -101,7 +128,7 @@ public class RayTracerBasic extends RayTracerBase
             }
             GeoPoint closestPoint = ray.findClosestGeoPoint(intersection);
 
-             colorTmp=calcColor(closestPoint, ray) == null ? scene.getBackground() : calcColor(closestPoint, ray);
+             colorTmp=calcColor(closestPoint, ray,rays.size()) == null ? scene.getBackground() : calcColor(closestPoint, ray,rays.size());
              if(finalColor==null)
              {
                  firstColor=colorTmp;
@@ -127,9 +154,9 @@ public class RayTracerBasic extends RayTracerBase
      * @return color
      * an auxiliary method to calculate the pixels color
      */
-    private Color calcColor(GeoPoint closestPoint, Ray ray)
+    private Color calcColor(GeoPoint closestPoint, Ray ray, int rayCounter)
     {
-        return calcColor(closestPoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K)
+        return calcColor(closestPoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K,rayCounter)
                 .add(scene.getAmbientLight().getIntensity());
     }
 
@@ -143,10 +170,10 @@ public class RayTracerBasic extends RayTracerBase
      * @return color
      * a methode that calculate the pixels color with all its affects
      */
-    private Color calcColor(GeoPoint point, Ray ray, int level, Double3 k)
+    private Color calcColor(GeoPoint point, Ray ray, int level, Double3 k,int rayCounter)
     {
-        Color color= calcLocalEffects(point, ray,k);
-        return level==1? color:color.add(calcGlobalEffects(point, ray,level,k));
+        Color color= calcLocalEffects(point, ray,k,rayCounter);
+        return level==1? color:color.add(calcGlobalEffects(point, ray,level,k,rayCounter));
 
     }
 
@@ -160,16 +187,15 @@ public class RayTracerBasic extends RayTracerBase
      * a methode that calculate the colors local effects:
      * diffusive and specular
      */
-    private Color calcLocalEffects(GeoPoint gp, Ray ray,Double3 k)
+    private Color calcLocalEffects(GeoPoint gp, Ray ray,Double3 k, int beam)
     {
         Color color = gp.geometry.getEmission();
         Vector v = ray.getDir();
         Vector n = gp.geometry.getNormal(gp.point);
         double nv = alignZero(n.dotProduct(v));
-
         if (nv == 0)
             return Color.BLACK;
-
+        Double3 ktr;
         Material material = gp.geometry.getMaterial();
 
         for (LightSource lightSource : scene.getLights())
@@ -178,7 +204,12 @@ public class RayTracerBasic extends RayTracerBase
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0)        //checking if sign(nl) == sing(nv)
             {
-                Double3 ktr = transparency(gp,lightSource,l, n);
+                if(softShadows) {//we want soft shadows
+                    ktr = transparencyBeam(lightSource, n, gp, beam);
+                }
+                else {
+                    ktr = transparency(gp, lightSource, l, n);
+                }
 
                  if(ktr.product(k).biggerThan(MIN_CALC_COLOR_K))
                  {
@@ -237,7 +268,7 @@ public class RayTracerBasic extends RayTracerBase
      *  a methode that calculate the colors global effects:
      *  transparency and reflection
      */
-    private Color calcGlobalEffects(GeoPoint gp,Ray ray, int level, Double3 k)
+    private Color calcGlobalEffects(GeoPoint gp,Ray ray, int level, Double3 k,int rayCounter)
     {
         Color color=Color.BLACK;
         Vector normal=gp.geometry.getNormal(gp.point);
@@ -245,13 +276,13 @@ public class RayTracerBasic extends RayTracerBase
         Double3 kkr=material.kR.product(k);
 
         if(kkr.biggerThan(MIN_CALC_COLOR_K))
-            color=calcGlobalEffect(constructReflectedRay(gp.point,ray,normal),level,material.kR,kkr);
+            color=calcGlobalEffect(constructReflectedRay(gp.point,ray,normal),level,material.kR,kkr,rayCounter);
 
         Double3 kkt =material.kT.product(k);
 
         if (kkt.biggerThan(MIN_CALC_COLOR_K))
             color = color.add(
-                    calcGlobalEffect(constructRefractedRay(gp.point, ray, normal), level, material.kT, kkt));
+                    calcGlobalEffect(constructRefractedRay(gp.point, ray, normal), level, material.kT, kkt,rayCounter));
         return color;
     }
 
@@ -264,10 +295,10 @@ public class RayTracerBasic extends RayTracerBase
      * @return color
      * an auxiliary method for the recursion
      */
-    private Color calcGlobalEffect(Ray ray, int level, Double3 kx, Double3 kkx)
+    private Color calcGlobalEffect(Ray ray, int level, Double3 kx, Double3 kkx, int rayCounter)
     {
         GeoPoint gp = findClosestIntersection (ray);
-        return (gp == null ? scene.getBackground() : calcColor(gp, ray, level-1, kkx)).scale(kx);
+        return (gp == null ? scene.getBackground() : calcColor(gp, ray, level-1, kkx,rayCounter)).scale(kx);
     }
 
     /**
@@ -316,6 +347,19 @@ public class RayTracerBasic extends RayTracerBase
                 return Double3.ZERO;
         }
         return ktr;
+    }
+
+
+    private Double3 transparencyBeam(LightSource lightSource, Vector n, GeoPoint geoPoint,int beam) {
+        Double3 tempKtr = new Double3(0d);
+        List<Vector> beamL = lightSource.getBeamL(geoPoint.point, beamRadius,beam);
+
+        for (Vector vl : beamL) {
+            tempKtr = tempKtr.add(transparency(geoPoint,lightSource,vl,n));
+        }
+        tempKtr = tempKtr.reduce(beamL.size());
+
+        return tempKtr;
     }
 
     /**
