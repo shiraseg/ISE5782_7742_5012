@@ -323,15 +323,6 @@ public class RayTracerBasic extends RayTracerBase
         if (intersections == null)
             return new Double3(1.0);
 
-//        for (var geo : intersections)
-//        {
-//            double dist = geo.point.distance(gp.point);
-//
-//            //if the point is farther than the maximum distance- remove from list.
-//            if (dist >= maxDistance)
-//                intersections.remove(geo);
-//
-//        }
         for(int i=0; i<intersections.size();i++) {
             double dist = intersections.get(i).point.distance(gp.point);
 
