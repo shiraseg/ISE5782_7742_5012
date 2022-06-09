@@ -204,7 +204,7 @@ public class RayTracerBasic extends RayTracerBase
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0)        //checking if sign(nl) == sing(nv)
             {
-                if(softShadows) {//we want soft shadows
+                if(true) {//we want soft shadows
                     ktr = transparencyBeam(lightSource, n, gp, beam);
                 }
                 else {
@@ -323,13 +323,23 @@ public class RayTracerBasic extends RayTracerBase
         if (intersections == null)
             return new Double3(1.0);
 
-        for (var geo : intersections)
-        {
-            double dist = geo.point.distance(gp.point);
+//        for (var geo : intersections)
+//        {
+//            double dist = geo.point.distance(gp.point);
+//
+//            //if the point is farther than the maximum distance- remove from list.
+//            if (dist >= maxDistance)
+//                intersections.remove(geo);
+//
+//        }
+        for(int i=0; i<intersections.size();i++) {
+            double dist = intersections.get(i).point.distance(gp.point);
 
             //if the point is farther than the maximum distance- remove from list.
-            if (dist >= maxDistance)
-                intersections.remove(geo);
+            if (dist >= maxDistance) {
+                intersections.remove(intersections.get(i));
+                i--;
+            }
 
         }
 
