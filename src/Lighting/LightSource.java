@@ -17,6 +17,9 @@ public interface LightSource
 
     double getDistance(Point point);
 
+    /**
+     * return vectors with wanted radius in ratio with distance of light source from point
+     */
     public List<Vector> getBeamL(Point p, double radius,int amount);
 
 }
