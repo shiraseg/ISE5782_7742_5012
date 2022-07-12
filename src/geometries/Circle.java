@@ -6,6 +6,9 @@ import primitives.Vector;
 
 import java.util.List;
 
+/**
+ * Bonus class
+ */
 public class  Circle extends Geometry {
 
 
